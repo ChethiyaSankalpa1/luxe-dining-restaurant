@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxe Dining | Premium Fine Dining Restaurant</title>
-    <meta name="description" content="Luxe Dining offers an unforgettable culinary experience. Reserve your table or order exquisite fine dining dishes online.">
+    <title>Luxe Dining | Premium Fine Dining & Sri Lankan Gastronomy</title>
+    <meta name="description" content="Luxe Dining offers an unforgettable culinary experience blending global fine dining and authentic Sri Lankan gastronomy. Book a table or order online.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,12 +26,13 @@
             <a href="#" class="logo">Luxe <span>Dining</span></a>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
                 <li><a href="#menu">Menu</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#testimonials">Reviews</a></li>
             </ul>
             <div class="nav-actions">
-                <button class="cart-btn" aria-label="Order">
+                <button class="cart-btn" id="openCartBtn" aria-label="Open Order Cart">
                     <i class="fas fa-concierge-bell"></i>
                     <span class="cart-count">0</span>
                 </button>
@@ -47,6 +48,7 @@
         <div class="close-menu"><i class="fas fa-times"></i></div>
         <ul class="mobile-nav-links">
             <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
             <li><a href="#menu">Menu</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#testimonials">Reviews</a></li>
@@ -57,8 +59,8 @@
     <header id="home" class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1 class="fade-up">Luxe Dining Experience</h1>
-            <p class="fade-up delay-1">Exquisite culinary creations for an unforgettable evening</p>
+            <h1 class="fade-up">Luxe Dining & Sri Lankan Gastronomy</h1>
+            <p class="fade-up delay-1">Exquisite heritage culinary creations & contemporary fine arts</p>
             <div class="hero-btns fade-up delay-2">
                 <a href="#menu" class="btn btn-primary">View Menu</a>
                 <a href="#contact" class="btn btn-secondary">Reserve a Table</a>
@@ -66,12 +68,43 @@
         </div>
     </header>
 
+    <!-- About Section -->
+    <section id="about" class="about-section section-padding">
+        <div class="container about-container">
+            <div class="about-img-group fade-up">
+                <div class="img-wrapper main-img">
+                    <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=600&q=80" alt="Chef crafting dish">
+                </div>
+                <div class="img-wrapper sub-img">
+                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=500&q=80" alt="Sri Lankan spices">
+                </div>
+            </div>
+            <div class="about-content fade-up delay-1">
+                <span class="subtitle">Our Heritage</span>
+                <h2>A Fusion of Sri Lankan Legacy & Contemporary Gastronomy</h2>
+                <div class="separator-left"></div>
+                <p class="about-text-highlight">Luxe Dining celebrates the rich tapestry of Sri Lankan culinary heritage, elegantly reimagined through modern gastronomic art.</p>
+                <p>Our journey began with a simple passion: to elevate authentic island spices—from pure Ceylon cinnamon to hand-ground roasted curries—into high-end global dining masterpieces. Under the guidance of our culinary visionaries, we seamlessly fuse local soul with premium ingredients, creating an unparalleled gastronomic journey.</p>
+                <div class="about-stats">
+                    <div class="stat-box">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Michelin Stars Inspiration</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Locally Sourced Spices</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Product Grid Section -->
     <section id="menu" class="collections section-padding">
         <div class="section-header fade-up">
             <h2>Signature Menu</h2>
             <div class="separator"></div>
-            <p>Discover our culinary masterpieces, crafted with passion and the finest seasonal ingredients.</p>
+            <p>Discover our culinary masterpieces, crafted with passion, fine gourmet arts, and traditional Sri Lankan inspiration.</p>
         </div>
 
         <div class="product-grid container">
@@ -91,28 +124,28 @@
                     <p class="desc">A5 Japanese Wagyu seared to perfection with a red wine reduction.</p>
                     <div class="card-footer">
                         <span class="price">$120.00</span>
-                        <button class="add-to-cart" aria-label="Order dish"><i class="fas fa-plus"></i></button>
+                        <button class="add-to-cart" data-id="1" aria-label="Order Wagyu"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
             </div>
 
-            <!-- Product 2 -->
+            <!-- Product 2 (SL) -->
             <div class="product-card fade-up delay-1">
                 <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?w=800&q=80" alt="Butter Poached Lobster" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1626804475315-9644b37a2f4b?w=800&q=80" alt="Ceylon Mud Crab Curry" loading="lazy">
                     <div class="hover-overlay">
                         <button class="view-btn" data-id="2">Quick View</button>
                     </div>
                 </div>
                 <div class="card-info">
                     <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
-                    <h3>Butter Poached Lobster</h3>
-                    <p class="desc">Fresh caught Maine lobster tail, slow-poached in herb butter.</p>
+                    <h3>Ceylon Mud Crab Curry</h3>
+                    <p class="desc">Premium mud crab cooked in aromatic Sri Lankan spices and fresh coconut milk.</p>
                     <div class="card-footer">
                         <span class="price">$95.00</span>
-                        <button class="add-to-cart" aria-label="Order dish"><i class="fas fa-plus"></i></button>
+                        <button class="add-to-cart" data-id="2" aria-label="Order Crab"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
             </div>
@@ -120,28 +153,28 @@
             <!-- Product 3 -->
             <div class="product-card fade-up delay-2">
                 <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1626844131082-256783844137?w=800&q=80" alt="Truffle Mushroom Risotto" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?w=800&q=80" alt="Butter Poached Lobster" loading="lazy">
                     <div class="hover-overlay">
                         <button class="view-btn" data-id="3">Quick View</button>
                     </div>
                 </div>
                 <div class="card-info">
                     <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                     </div>
-                    <h3>Truffle Mushroom Risotto</h3>
-                    <p class="desc">Creamy arborio rice with wild forest mushrooms and black truffle.</p>
+                    <h3>Butter Poached Lobster</h3>
+                    <p class="desc">Fresh caught Maine lobster tail, slow-poached in herb butter with saffron risotto.</p>
                     <div class="card-footer">
-                        <span class="price">$65.00</span>
-                        <button class="add-to-cart" aria-label="Order dish"><i class="fas fa-plus"></i></button>
+                        <span class="price">$95.00</span>
+                        <button class="add-to-cart" data-id="3" aria-label="Order Lobster"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
             </div>
 
-            <!-- Product 4 -->
+            <!-- Product 4 (SL) -->
             <div class="product-card fade-up">
                 <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1599921841143-819065a55cc6?w=800&q=80" alt="Pan-Seared Scallops" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1618413813958-86d38e8ec436?w=800&q=80" alt="Royal Ceylon Lamprais" loading="lazy">
                     <div class="hover-overlay">
                         <button class="view-btn" data-id="4">Quick View</button>
                     </div>
@@ -150,11 +183,11 @@
                     <div class="rating">
                         <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
-                    <h3>Pan-Seared Scallops</h3>
-                    <p class="desc">Jumbo Hokkaido scallops seared to a golden brown over cauliflower silk.</p>
+                    <h3>Royal Ceylon Lamprais</h3>
+                    <p class="desc">Aromatic rice cooked in rich stock, baked in banana leaf with mixed meat curry and sambols.</p>
                     <div class="card-footer">
-                        <span class="price">$75.00</span>
-                        <button class="add-to-cart" aria-label="Order dish"><i class="fas fa-plus"></i></button>
+                        <span class="price">$55.00</span>
+                        <button class="add-to-cart" data-id="4" aria-label="Order Lamprais"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
             </div>
@@ -162,28 +195,28 @@
             <!-- Product 5 -->
             <div class="product-card fade-up delay-1">
                 <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=800&q=80" alt="Ora King Salmon" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1626844131082-256783844137?w=800&q=80" alt="Truffle Mushroom Risotto" loading="lazy">
                     <div class="hover-overlay">
                         <button class="view-btn" data-id="5">Quick View</button>
                     </div>
                 </div>
                 <div class="card-info">
                     <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
-                    <h3>Ora King Salmon</h3>
-                    <p class="desc">Melt-in-your-mouth New Zealand Ora King salmon with citrus beurre blanc.</p>
+                    <h3>Truffle Mushroom Risotto</h3>
+                    <p class="desc">Creamy arborio rice with wild forest mushrooms and freshly shaved black truffle.</p>
                     <div class="card-footer">
-                        <span class="price">$85.00</span>
-                        <button class="add-to-cart" aria-label="Order dish"><i class="fas fa-plus"></i></button>
+                        <span class="price">$65.00</span>
+                        <button class="add-to-cart" data-id="5" aria-label="Order Risotto"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
             </div>
 
-            <!-- Product 6 -->
+            <!-- Product 6 (SL) -->
             <div class="product-card fade-up delay-2">
                 <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1534080564583-6be75777b70a?w=800&q=80" alt="Seafood Saffron Paella" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?w=800&q=80" alt="Traditional Hopper Feast" loading="lazy">
                     <div class="hover-overlay">
                         <button class="view-btn" data-id="6">Quick View</button>
                     </div>
@@ -192,11 +225,53 @@
                     <div class="rating">
                         <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                     </div>
-                    <h3>Seafood Saffron Paella</h3>
-                    <p class="desc">A Spanish classic elevated with premium saffron threads and fresh seafood.</p>
+                    <h3>Traditional Hopper Feast</h3>
+                    <p class="desc">Crispy-edged egg hoppers served with caramelized seeni sambol and coconut lunu miris.</p>
                     <div class="card-footer">
-                        <span class="price">$110.00</span>
-                        <button class="add-to-cart" aria-label="Order dish"><i class="fas fa-plus"></i></button>
+                        <span class="price">$35.00</span>
+                        <button class="add-to-cart" data-id="6" aria-label="Order Hoppers"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="product-card fade-up">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1599921841143-819065a55cc6?w=800&q=80" alt="Pan-Seared Scallops" loading="lazy">
+                    <div class="hover-overlay">
+                        <button class="view-btn" data-id="7">Quick View</button>
+                    </div>
+                </div>
+                <div class="card-info">
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <h3>Pan-Seared Scallops</h3>
+                    <p class="desc">Jumbo Hokkaido scallops seared to a golden brown over cauliflower silk and crispy pancetta.</p>
+                    <div class="card-footer">
+                        <span class="price">$75.00</span>
+                        <button class="add-to-cart" data-id="7" aria-label="Order Scallops"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 8 (SL) -->
+            <div class="product-card fade-up delay-1">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&q=80" alt="Gourmet Kottu Supreme" loading="lazy">
+                    <div class="hover-overlay">
+                        <button class="view-btn" data-id="8">Quick View</button>
+                    </div>
+                </div>
+                <div class="card-info">
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                    <h3>Gourmet Kottu Supreme</h3>
+                    <p class="desc">Shredded flatbread stir-fried with eggs, organic garden vegetables, and aromatic curry chicken.</p>
+                    <div class="card-footer">
+                        <span class="price">$40.00</span>
+                        <button class="add-to-cart" data-id="8" aria-label="Order Kottu"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
             </div>
@@ -246,12 +321,12 @@
                 <div class="slider-container" id="sliderContainer">
                     <div class="slide">
                         <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80" alt="Sarah J." class="client-img">
-                        <p class="quote">"The Wagyu Beef Tenderloin was an absolute masterpiece. It melted in my mouth. Highly recommended for any special evening!"</p>
+                        <p class="quote">"The Ceylon Mud Crab Curry was absolutely unbelievable. Authentic island flavors combined with elegant execution. An unforgettable dining experience!"</p>
                         <h4 class="client-name">Sarah Jenkins</h4>
                     </div>
                     <div class="slide">
                         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80" alt="Michael R." class="client-img">
-                        <p class="quote">"We celebrated our anniversary here. The ambiance is stunning and the Butter Poached Lobster was incredible. Best fine dining in the city."</p>
+                        <p class="quote">"We celebrated our anniversary here. The ambiance is stunning and the Royal Ceylon Lamprais was incredible. Best fine dining in the city."</p>
                         <h4 class="client-name">Michael Roberts</h4>
                     </div>
                     <div class="slide">
@@ -272,7 +347,7 @@
         <div class="container footer-content">
             <div class="footer-col brand-col fade-up">
                 <a href="#" class="logo">Luxe <span>Dining</span></a>
-                <p>Elevating the art of fine dining. Join us for a culinary journey you will never forget.</p>
+                <p>Elevating the art of fine dining. Join us for a culinary journey of international elegance and Sri Lankan heritage.</p>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -284,8 +359,8 @@
                 <h3>Quick Links</h3>
                 <ul>
                     <li><a href="#home">Home</a></li>
+                    <li><a href="#about">Our Story</a></li>
                     <li><a href="#menu">Menu</a></li>
-                    <li><a href="#experience">Our Story</a></li>
                     <li><a href="#">Reservations</a></li>
                 </ul>
             </div>
@@ -332,8 +407,9 @@
                             <label for="addonSelect">Enhancements</label>
                             <select id="addonSelect" class="custom-select">
                                 <option value="0">Standard Preparation</option>
-                                <option value="25">Add Shaved Black Truffle (+$25)</option>
-                                <option value="15">Add 24k Gold Leaf (+$15)</option>
+                                <option value="25">Add Shaved Black Truffle (+$25.00)</option>
+                                <option value="15">Add 24k Gold Leaf (+$15.00)</option>
+                                <option value="10">Add Sri Lankan Pol Sambol Relish (+$10.00)</option>
                             </select>
                         </div>
                         <div class="option-group">
@@ -360,6 +436,25 @@
             </div>
         </div>
     </div>
+
+    <!-- Dynamic Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Your Order</h2>
+            <button class="close-cart" id="closeCartBtn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cartItemsContainer">
+            <!-- Dynamic cart items injected here by JS -->
+        </div>
+        <div class="cart-footer-details">
+            <div class="cart-total-row">
+                <span>Subtotal:</span>
+                <span id="cartSubtotal">$0.00</span>
+            </div>
+            <button class="btn btn-primary btn-block checkout-btn" id="checkoutBtn">Place Order</button>
+        </div>
+    </div>
+    <div class="cart-sidebar-overlay" id="cartOverlay"></div>
 
     <!-- Notification Toast -->
     <div class="toast" id="toast">

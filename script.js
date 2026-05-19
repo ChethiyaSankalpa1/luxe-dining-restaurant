@@ -93,7 +93,7 @@ setInterval(() => {
     goToSlide(nextSlide);
 }, 5000);
 
-// Product Data for Restaurant Menu (Mock data for Modal)
+// Updated Premium Product Data (8 Dishes including Sri Lankan Gourmet)
 const productsData = {
     1: {
         title: "Wagyu Beef Tenderloin",
@@ -102,36 +102,61 @@ const productsData = {
         desc: "A5 Japanese Wagyu seared to perfection, served with a red wine reduction, potato purée, and roasted asparagus."
     },
     2: {
+        title: "Ceylon Mud Crab Curry",
+        price: 95.00,
+        img: "https://images.unsplash.com/photo-1626804475315-9644b37a2f4b?w=800&q=80",
+        desc: "Handpicked wild Ceylon mud crab simmered in a dense, richly spiced, toasted local curry blend and fresh coconut cream."
+    },
+    3: {
         title: "Butter Poached Lobster",
         price: 95.00,
         img: "https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?w=800&q=80",
         desc: "Fresh caught Maine lobster tail, slow-poached in herb butter, accompanied by saffron risotto and lemon foam."
     },
-    3: {
+    4: {
+        title: "Royal Ceylon Lamprais",
+        price: 55.00,
+        img: "https://images.unsplash.com/photo-1618413813958-86d38e8ec436?w=800&q=80",
+        desc: "Steamed rice cooked in spiced mutton stock, served with frikkadels, caramelized onion sambol, aubergine pahi, and mixed meat, slow-baked in a banana leaf."
+    },
+    5: {
         title: "Truffle Mushroom Risotto",
         price: 65.00,
         img: "https://images.unsplash.com/photo-1626844131082-256783844137?w=800&q=80",
         desc: "Creamy arborio rice with wild forest mushrooms, finished with aged Parmigiano-Reggiano and freshly shaved black truffle."
     },
-    4: {
+    6: {
+        title: "Traditional Hopper Feast",
+        price: 35.00,
+        img: "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?w=800&q=80",
+        desc: "Light, crispy-edged rice crepes baked with free-range eggs. Served alongside premium Seeni Sambol and aromatic coconut Lunu Miris."
+    },
+    7: {
         title: "Pan-Seared Scallops",
         price: 75.00,
         img: "https://images.unsplash.com/photo-1599921841143-819065a55cc6?w=800&q=80",
         desc: "Jumbo Hokkaido scallops seared to a golden brown, served over a bed of cauliflower silk and pancetta crisp."
     },
-    5: {
-        title: "Ora King Salmon",
-        price: 85.00,
-        img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=800&q=80",
-        desc: "Melt-in-your-mouth New Zealand Ora King salmon with a citrus beurre blanc, paired with seasonal microgreens."
-    },
-    6: {
-        title: "Seafood Saffron Paella",
-        price: 110.00,
-        img: "https://images.unsplash.com/photo-1534080564583-6be75777b70a?w=800&q=80",
-        desc: "A Spanish classic elevated with premium saffron threads, loaded with tiger prawns, mussels, calamari, and chorizo."
+    8: {
+        title: "Gourmet Kottu Supreme",
+        price: 40.00,
+        img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&q=80",
+        desc: "A Sri Lankan classic elevated. Finely shredded flaky flatbread wok-tossed with farm-fresh organic eggs, fresh green vegetables, tender curry chicken, and lemongrass."
     }
 };
+
+// State: Order Cart
+let cart = [];
+
+// DOM Elements for Cart Sidebar
+const cartSidebar = document.getElementById('cartSidebar');
+const cartOverlay = document.getElementById('cartOverlay');
+const openCartBtn = document.getElementById('openCartBtn');
+const closeCartBtn = document.getElementById('closeCartBtn');
+const cartItemsContainer = document.getElementById('cartItemsContainer');
+const cartSubtotal = document.getElementById('cartSubtotal');
+const cartCountElement = document.querySelector('.cart-count');
+const toast = document.getElementById('toast');
 
 // Modal Logic
 const modalOverlay = document.getElementById('productModal');
@@ -146,11 +171,42 @@ const addonSelect = document.getElementById('addonSelect');
 const qtyInput = document.getElementById('qtyInput');
 
 let currentProductPrice = 0;
+let currentProductId = null;
 
+// Open Cart
+function openCart() {
+    cartSidebar.classList.add('active');
+    cartOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+// Close Cart
+function closeCart() {
+    cartSidebar.classList.remove('active');
+    cartOverlay.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+openCartBtn.addEventListener('click', openCart);
+closeCartBtn.addEventListener('click', closeCart);
+cartOverlay.addEventListener('click', closeCart);
+
+// Show Toast Alert
+function showToast(msg) {
+    const toastMsg = document.getElementById('toastMsg');
+    toastMsg.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}
+
+// Modal View Handler
 viewBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
         const id = e.target.dataset.id;
         const product = productsData[id];
+        currentProductId = id;
         
         if(product) {
             modalImg.src = product.img;
@@ -182,7 +238,7 @@ modalOverlay.addEventListener('click', (e) => {
     }
 });
 
-// Calculate Total
+// Calculate Modal Total
 function updateModalTotal() {
     const addonPrice = parseFloat(addonSelect.value);
     const qty = parseInt(qtyInput.value);
@@ -208,42 +264,152 @@ document.querySelector('.qty-btn.plus').addEventListener('click', () => {
     updateModalTotal();
 });
 
-// Cart functionality & Toast Notification
-let cartCount = 0;
-const cartCountElement = document.querySelector('.cart-count');
-const toast = document.getElementById('toast');
-const addToCartBtns = document.querySelectorAll('.add-to-cart, .add-to-cart-modal');
+// Update Cart Count and Subtotal UI
+function updateCartUI() {
+    // Subtotal calculation
+    let total = 0;
+    let count = 0;
+    cartItemsContainer.innerHTML = '';
 
-function showToast(msg) {
-    const toastMsg = document.getElementById('toastMsg');
-    toastMsg.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => {
-        toast.classList.remove('show');
-    }, 3000);
+    if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<div style="text-align: center; color: var(--text-secondary); margin-top: 40px;"><i class="fas fa-receipt" style="font-size: 3rem; margin-bottom: 15px; color: var(--border-color);"></i><p>Your order is empty.</p></div>';
+    } else {
+        cart.forEach((item, index) => {
+            const itemCost = (item.price + item.addonPrice) * item.qty;
+            total += itemCost;
+            count += item.qty;
+
+            const cartItemHTML = `
+                <div class="cart-item">
+                    <img src="${item.img}" alt="${item.title}">
+                    <div class="cart-item-info">
+                        <h4>${item.title}</h4>
+                        ${item.addonName !== "Standard Preparation" ? `<span class="cart-item-enhancement">+ ${item.addonName}</span>` : ''}
+                        <div class="cart-item-price">$${(item.price + item.addonPrice).toFixed(2)}</div>
+                        <div class="cart-item-qty-control">
+                            <button onclick="changeQty(${index}, -1)"><i class="fas fa-minus"></i></button>
+                            <span>${item.qty}</span>
+                            <button onclick="changeQty(${index}, 1)"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                    <button class="remove-cart-item" onclick="removeFromCart(${index})" aria-label="Remove item"><i class="fas fa-trash-can"></i></button>
+                </div>
+            `;
+            cartItemsContainer.innerHTML += cartItemHTML;
+        });
+    }
+
+    cartSubtotal.textContent = `$${total.toFixed(2)}`;
+    cartCountElement.textContent = count;
 }
 
-addToCartBtns.forEach(btn => {
+// Global functions for cart management (accessible from onclick attributes)
+window.changeQty = function(index, amount) {
+    cart[index].qty += amount;
+    if (cart[index].qty < 1) {
+        cart.splice(index, 1);
+    }
+    updateCartUI();
+};
+
+window.removeFromCart = function(index) {
+    cart.splice(index, 1);
+    updateCartUI();
+    showToast("Dish removed from your order.");
+};
+
+// Add to Cart Logic (Quick Add from main menu)
+document.querySelectorAll('.add-to-cart').forEach(btn => {
     btn.addEventListener('click', (e) => {
-        let qty = 1;
-        if(btn.classList.contains('add-to-cart-modal')) {
-            qty = parseInt(qtyInput.value);
-            modalOverlay.classList.remove('active');
-            document.body.style.overflow = 'auto';
+        e.stopPropagation();
+        const id = btn.dataset.id;
+        const product = productsData[id];
+        
+        if (product) {
+            // Check if standard dish is already in cart
+            const existingIndex = cart.findIndex(item => item.id === id && item.addonName === "Standard Preparation");
+            
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += 1;
+            } else {
+                cart.push({
+                    id: id,
+                    title: product.title,
+                    price: product.price,
+                    img: product.img,
+                    qty: 1,
+                    addonName: "Standard Preparation",
+                    addonPrice: 0
+                });
+            }
+            
+            updateCartUI();
+            
+            // Add pulse animation to cart button
+            const cartIcon = document.querySelector('.cart-btn i');
+            cartIcon.style.transform = 'scale(1.3)';
+            setTimeout(() => {
+                cartIcon.style.transform = 'scale(1)';
+            }, 200);
+            
+            showToast(`Added 1 ${product.title} to your order.`);
+        }
+    });
+});
+
+// Add to Cart Logic (From Modal Popup)
+document.querySelector('.add-to-cart-modal').addEventListener('click', () => {
+    const product = productsData[currentProductId];
+    const qty = parseInt(qtyInput.value);
+    const addonText = addonSelect.options[addonSelect.selectedIndex].text;
+    const addonVal = parseFloat(addonSelect.value);
+    
+    // Extract clean name e.g., "Add Shaved Black Truffle (+$25.00)" -> "Add Shaved Black Truffle"
+    const addonName = addonSelect.value === "0" ? "Standard Preparation" : addonText.split(' (+')[0];
+    
+    if (product) {
+        // Match both product id and exact enhancement
+        const existingIndex = cart.findIndex(item => item.id === currentProductId && item.addonName === addonName);
+        
+        if (existingIndex > -1) {
+            cart[existingIndex].qty += qty;
+        } else {
+            cart.push({
+                id: currentProductId,
+                title: product.title,
+                price: product.price,
+                img: product.img,
+                qty: qty,
+                addonName: addonName,
+                addonPrice: addonVal
+            });
         }
         
-        cartCount += qty;
-        cartCountElement.textContent = cartCount;
+        updateCartUI();
+        modalOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
         
-        // Add animation to cart icon
+        // Add pulse animation to cart button
         const cartIcon = document.querySelector('.cart-btn i');
         cartIcon.style.transform = 'scale(1.3)';
         setTimeout(() => {
             cartIcon.style.transform = 'scale(1)';
         }, 200);
         
-        showToast(`Added ${qty} dish(es) to order successfully!`);
-    });
+        showToast(`Added ${qty} ${product.title} to your order.`);
+    }
+});
+
+// Checkout Action
+document.getElementById('checkoutBtn').addEventListener('click', () => {
+    if (cart.length > 0) {
+        showToast("Processing order... Thank you for dining with Luxe!");
+        cart = [];
+        updateCartUI();
+        setTimeout(closeCart, 1500);
+    } else {
+        showToast("Your order is empty. Please add items to checkout.");
+    }
 });
 
 // Newsletter Form
