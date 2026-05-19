@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe Dining | Premium Fine Dining Restaurant</title>
+    <meta name="description" content="Luxe Dining offers an unforgettable culinary experience. Reserve your table or order exquisite fine dining dishes online.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-circle"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Luxe <span>Dining</span></a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#testimonials">Reviews</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="cart-btn" aria-label="Order">
+                    <i class="fas fa-concierge-bell"></i>
+                    <span class="cart-count">0</span>
+                </button>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay">
+        <div class="close-menu"><i class="fas fa-times"></i></div>
+        <ul class="mobile-nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#testimonials">Reviews</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="fade-up">Luxe Dining Experience</h1>
+            <p class="fade-up delay-1">Exquisite culinary creations for an unforgettable evening</p>
+            <div class="hero-btns fade-up delay-2">
+                <a href="#menu" class="btn btn-primary">View Menu</a>
+                <a href="#contact" class="btn btn-secondary">Reserve a Table</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Product Grid Section -->
+    <section id="menu" class="collections section-padding">
+        <div class="section-header fade-up">
+            <h2>Signature Menu</h2>
+            <div class="separator"></div>
+            <p>Discover our culinary masterpieces, crafted with passion and the finest seasonal ingredients.</p>
+        </div>
+
+        <div class="product-grid container">
+            <!-- Product 1 -->
+            <div class="product-card fade-up">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1544025162-8315ea076231?w=800&q=80" alt="Wagyu Beef Tenderloin" loading="lazy">
+                    <div class="hover-overlay">
+                        <button class="view-btn" data-id="1">Quick View</button>
+                    </div>
+                </div>
+                <div class="card-info">
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <h3>Wagyu Beef Tenderloin</h3>
+                    <p class="desc">A5 Japanese Wagyu seared to perfection with a red wine reduction.</p>
+                    <div class="card-footer">
+                        <span class="price">$120.00</span>
+                        <button class="add-to-cart" aria-label="Order dish"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card fade-up delay-1">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?w=800&q=80" alt="Butter Poached Lobster" loading="lazy">
+                    <div class="hover-overlay">
+                        <button class="view-btn" data-id="2">Quick View</button>
+                    </div>
+                </div>
+                <div class="card-info">
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>Butter Poached Lobster</h3>
+                    <p class="desc">Fresh caught Maine lobster tail, slow-poached in herb butter.</p>
+                    <div class="card-footer">
+                        <span class="price">$95.00</span>
+                        <button class="add-to-cart" aria-label="Order dish"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card fade-up delay-2">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1626844131082-256783844137?w=800&q=80" alt="Truffle Mushroom Risotto" loading="lazy">
+                    <div class="hover-overlay">
+                        <button class="view-btn" data-id="3">Quick View</button>
+                    </div>
+                </div>
+                <div class="card-info">
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <h3>Truffle Mushroom Risotto</h3>
+                    <p class="desc">Creamy arborio rice with wild forest mushrooms and black truffle.</p>
+                    <div class="card-footer">
+                        <span class="price">$65.00</span>
+                        <button class="add-to-cart" aria-label="Order dish"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card fade-up">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1599921841143-819065a55cc6?w=800&q=80" alt="Pan-Seared Scallops" loading="lazy">
+                    <div class="hover-overlay">
+                        <button class="view-btn" data-id="4">Quick View</button>
+                    </div>
+                </div>
+                <div class="card-info">
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <h3>Pan-Seared Scallops</h3>
+                    <p class="desc">Jumbo Hokkaido scallops seared to a golden brown over cauliflower silk.</p>
+                    <div class="card-footer">
+                        <span class="price">$75.00</span>
+                        <button class="add-to-cart" aria-label="Order dish"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card fade-up delay-1">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=800&q=80" alt="Ora King Salmon" loading="lazy">
+                    <div class="hover-overlay">
+                        <button class="view-btn" data-id="5">Quick View</button>
+                    </div>
+                </div>
+                <div class="card-info">
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                    <h3>Ora King Salmon</h3>
+                    <p class="desc">Melt-in-your-mouth New Zealand Ora King salmon with citrus beurre blanc.</p>
+                    <div class="card-footer">
+                        <span class="price">$85.00</span>
+                        <button class="add-to-cart" aria-label="Order dish"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card fade-up delay-2">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1534080564583-6be75777b70a?w=800&q=80" alt="Seafood Saffron Paella" loading="lazy">
+                    <div class="hover-overlay">
+                        <button class="view-btn" data-id="6">Quick View</button>
+                    </div>
+                </div>
+                <div class="card-info">
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>Seafood Saffron Paella</h3>
+                    <p class="desc">A Spanish classic elevated with premium saffron threads and fresh seafood.</p>
+                    <div class="card-footer">
+                        <span class="price">$110.00</span>
+                        <button class="add-to-cart" aria-label="Order dish"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Section -->
+    <section id="experience" class="featured section-padding">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2>The Luxe Experience</h2>
+                <div class="separator"></div>
+            </div>
+            <div class="features-grid">
+                <div class="feature-box fade-up">
+                    <div class="feature-icon"><i class="fas fa-leaf"></i></div>
+                    <h3>Premium Ingredients</h3>
+                    <p>We source only the finest organic produce, premium cuts, and fresh seafood daily.</p>
+                </div>
+                <div class="feature-box fade-up delay-1">
+                    <div class="feature-icon"><i class="fas fa-fire-burner"></i></div>
+                    <h3>Expert Chefs</h3>
+                    <p>Our Michelin-starred culinary team crafts every dish with precision and artistry.</p>
+                </div>
+                <div class="feature-box fade-up delay-2">
+                    <div class="feature-icon"><i class="fas fa-concierge-bell"></i></div>
+                    <h3>Impeccable Service</h3>
+                    <p>Experience attentive, personalized service that anticipates your every need.</p>
+                </div>
+                <div class="feature-box fade-up delay-3">
+                    <div class="feature-icon"><i class="fas fa-wine-glass"></i></div>
+                    <h3>Elegant Ambiance</h3>
+                    <p>Dine in a sophisticated atmosphere with curated music and soft, ambient lighting.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Slider -->
+    <section id="testimonials" class="testimonials section-padding">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2>Guest Experiences</h2>
+                <div class="separator"></div>
+            </div>
+            <div class="testimonial-slider fade-up">
+                <div class="slider-container" id="sliderContainer">
+                    <div class="slide">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80" alt="Sarah J." class="client-img">
+                        <p class="quote">"The Wagyu Beef Tenderloin was an absolute masterpiece. It melted in my mouth. Highly recommended for any special evening!"</p>
+                        <h4 class="client-name">Sarah Jenkins</h4>
+                    </div>
+                    <div class="slide">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80" alt="Michael R." class="client-img">
+                        <p class="quote">"We celebrated our anniversary here. The ambiance is stunning and the Butter Poached Lobster was incredible. Best fine dining in the city."</p>
+                        <h4 class="client-name">Michael Roberts</h4>
+                    </div>
+                    <div class="slide">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&q=80" alt="Emily C." class="client-img">
+                        <p class="quote">"Their attention to detail is unmatched. The wine pairings suggested by the sommelier perfectly complemented our Truffle Risotto."</p>
+                        <h4 class="client-name">Emily Chen</h4>
+                    </div>
+                </div>
+                <div class="slider-dots" id="sliderDots">
+                    <!-- Dots generated by JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container footer-content">
+            <div class="footer-col brand-col fade-up">
+                <a href="#" class="logo">Luxe <span>Dining</span></a>
+                <p>Elevating the art of fine dining. Join us for a culinary journey you will never forget.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fas fa-utensils"></i></a>
+                </div>
+            </div>
+            <div class="footer-col fade-up delay-1">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#experience">Our Story</a></li>
+                    <li><a href="#">Reservations</a></li>
+                </ul>
+            </div>
+            <div class="footer-col fade-up delay-2">
+                <h3>Contact</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Luxury Ave, NY 10001</li>
+                    <li><i class="fas fa-phone"></i> +1 (212) 555-0199</li>
+                    <li><i class="fas fa-envelope"></i> reservations@luxedining.com</li>
+                </ul>
+            </div>
+            <div class="footer-col newsletter-col fade-up delay-3">
+                <h3>Newsletter</h3>
+                <p>Subscribe for exclusive event invitations and seasonal menu reveals.</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="Your Email Address" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Luxe Dining. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Product Modal -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal"><i class="fas fa-times"></i></button>
+            <div class="modal-body" style="display: flex; flex-direction: row; height: 100%;">
+                <div class="modal-img">
+                    <img src="" alt="Dish Image" id="modalImg">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modalTitle">Dish Title</h2>
+                    <p class="modal-price" id="modalPrice">$0.00</p>
+                    <div class="rating modal-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="modal-desc" id="modalDesc">Detailed description here.</p>
+                    
+                    <div class="modal-options">
+                        <div class="option-group">
+                            <label for="addonSelect">Enhancements</label>
+                            <select id="addonSelect" class="custom-select">
+                                <option value="0">Standard Preparation</option>
+                                <option value="25">Add Shaved Black Truffle (+$25)</option>
+                                <option value="15">Add 24k Gold Leaf (+$15)</option>
+                            </select>
+                        </div>
+                        <div class="option-group">
+                            <label>Dish Highlights</label>
+                            <ul class="ingredients-list">
+                                <li><i class="fas fa-check-circle"></i> Organic Ingredients</li>
+                                <li><i class="fas fa-check-circle"></i> Locally Sourced</li>
+                                <li><i class="fas fa-check-circle"></i> Chef's Signature</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <div class="qty-selector">
+                            <button class="qty-btn minus">-</button>
+                            <input type="number" value="1" min="1" id="qtyInput" readonly>
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                        <button class="btn btn-primary btn-block add-to-cart-modal">
+                            Order Dish - <span id="modalTotal">$0.00</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMsg">Dish added to order</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
