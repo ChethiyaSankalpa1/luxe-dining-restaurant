@@ -93,7 +93,7 @@ setInterval(() => {
     goToSlide(nextSlide);
 }, 5000);
 
-// Comprehensive Product Data for 12 Dishes (8 Sri Lankan Heritage, 4 International)
+// Comprehensive Product Data for 15 Items (8 Sri Lankan, 4 International, 3 Desserts)
 const productsData = {
     1: {
         title: "Wagyu Beef Tenderloin",
@@ -146,7 +146,7 @@ const productsData = {
     9: {
         title: "Cinnamon Glazed Duck",
         price: 65.00,
-        img: "https://images.unsplash.com/photo-1514516345957-556ca7d90a29?w=800&q=80",
+        img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80",
         desc: "Pan-seared spiced duck breast coated in organic ground Ceylon cinnamon and caramelized wild honey glaze."
     },
     10: {
@@ -158,7 +158,7 @@ const productsData = {
     11: {
         title: "Jaffna Spiced Prawn Thermidor",
         price: 70.00,
-        img: "https://images.unsplash.com/photo-1510627802779-3d44662111d1?w=800&q=80",
+        img: "https://images.unsplash.com/photo-1559737712-4217316a7f0f?w=800&q=80",
         desc: "Luxe jumbo prawns baked inside shell, stuffed with a decadent cream of Jaffna roasted spice powder, local coconut arrack reduction, and gruyère."
     },
     12: {
@@ -166,13 +166,32 @@ const productsData = {
         price: 50.00,
         img: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=800&q=80",
         desc: "Sizzling slices of premium beef tenderloin flash-fried with fresh capsicums, red banana peppers, red onions, and sweet-sour local tomato glaze."
+    },
+    13: {
+        title: "Modern Ceylon Watalappan",
+        price: 25.00,
+        img: "https://images.unsplash.com/photo-1579372786545-d24232daf58c?w=800&q=80",
+        desc: "Rich spiced coconut custard made with organic palm jaggery, nutmeg, and cardamom, garnished with roasted cashews."
+    },
+    14: {
+        title: "Golden Saffron Mousse",
+        price: 28.00,
+        img: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=800&q=80",
+        desc: "Light and airy organic saffron mousse topped with rosewater droplets, micro greens, and premium crushed pistachios."
+    },
+    15: {
+        title: "Gold Leaf Chocolate Fondant",
+        price: 30.00,
+        img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&q=80",
+        desc: "A melting liquid chocolate cake using pure 70% dark cocoa, decorated with edible 24k gold leaf and paired with vanilla gelato."
     }
 };
 
 // State: Order Cart
 let cart = [];
+let diningPreference = "dinein"; // Default dining preference
 
-// DOM Elements for Cart Sidebar
+// DOM Elements for Cart Sidebar & Dining Preferences
 const cartSidebar = document.getElementById('cartSidebar');
 const cartOverlay = document.getElementById('cartOverlay');
 const openCartBtn = document.getElementById('openCartBtn');
@@ -181,6 +200,8 @@ const cartItemsContainer = document.getElementById('cartItemsContainer');
 const cartSubtotal = document.getElementById('cartSubtotal');
 const cartCountElement = document.querySelector('.cart-count');
 const toast = document.getElementById('toast');
+const dineinBtn = document.getElementById('dineinBtn');
+const takeawayBtn = document.getElementById('takeawayBtn');
 
 // Modal Logic
 const modalOverlay = document.getElementById('productModal');
@@ -229,6 +250,21 @@ filterBtns.forEach(btn => {
     });
 });
 
+// Dining Preference Option Selection
+dineinBtn.addEventListener('click', () => {
+    diningPreference = "dinein";
+    dineinBtn.classList.add('active');
+    takeawayBtn.classList.remove('active');
+    showToast("Selected Dining Preference: Dine-In");
+});
+
+takeawayBtn.addEventListener('click', () => {
+    diningPreference = "takeaway";
+    takeawayBtn.classList.add('active');
+    dineinBtn.classList.remove('active');
+    showToast("Selected Dining Preference: Takeaway");
+});
+
 // Open Cart
 function openCart() {
     cartSidebar.classList.add('active');
@@ -257,11 +293,10 @@ function showToast(msg) {
     }, 3000);
 }
 
-// Modal View Handler (Works dynamically for dynamically selected items)
+// Modal View Handler
 function setupModalTriggers() {
     const viewBtns = document.querySelectorAll('.view-btn');
     viewBtns.forEach(btn => {
-        // Clear previous listeners by replacing node
         const newBtn = btn.cloneNode(true);
         btn.parentNode.replaceChild(newBtn, btn);
         
@@ -473,7 +508,8 @@ document.querySelector('.add-to-cart-modal').addEventListener('click', () => {
 // Checkout Action
 document.getElementById('checkoutBtn').addEventListener('click', () => {
     if (cart.length > 0) {
-        showToast("Processing order... Thank you for dining with Luxe!");
+        const preferenceText = diningPreference === "dinein" ? "Dine-In" : "Takeaway";
+        showToast(`Processing your ${preferenceText} order... Thank you for choosing Luxe!`);
         cart = [];
         updateCartUI();
         setTimeout(closeCart, 1500);
