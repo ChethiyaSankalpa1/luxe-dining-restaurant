@@ -107,9 +107,16 @@
             <p>Discover our culinary masterpieces, crafted with passion, fine gourmet arts, and traditional Sri Lankan inspiration.</p>
         </div>
 
+        <!-- Menu Filters -->
+        <div class="menu-filters fade-up">
+            <button class="filter-btn active" data-filter="all">All Masterpieces</button>
+            <button class="filter-btn" data-filter="srilankan">Sri Lankan Specialties</button>
+            <button class="filter-btn" data-filter="international">International Culinary</button>
+        </div>
+
         <div class="product-grid container">
-            <!-- Product 1 -->
-            <div class="product-card fade-up">
+            <!-- Product 1 (Int) -->
+            <div class="product-card fade-up" data-category="international">
                 <div class="card-img-wrapper">
                     <img src="https://images.unsplash.com/photo-1544025162-8315ea076231?w=800&q=80" alt="Wagyu Beef Tenderloin" loading="lazy">
                     <div class="hover-overlay">
@@ -130,7 +137,7 @@
             </div>
 
             <!-- Product 2 (SL) -->
-            <div class="product-card fade-up delay-1">
+            <div class="product-card fade-up delay-1" data-category="srilankan">
                 <div class="card-img-wrapper">
                     <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&q=80" alt="Ceylon Mud Crab Curry" loading="lazy">
                     <div class="hover-overlay">
@@ -150,8 +157,8 @@
                 </div>
             </div>
 
-            <!-- Product 3 -->
-            <div class="product-card fade-up delay-2">
+            <!-- Product 3 (Int) -->
+            <div class="product-card fade-up delay-2" data-category="international">
                 <div class="card-img-wrapper">
                     <img src="https://images.unsplash.com/photo-1559737712-4217316a7f0f?w=800&q=80" alt="Butter Poached Lobster" loading="lazy">
                     <div class="hover-overlay">
@@ -172,7 +179,7 @@
             </div>
 
             <!-- Product 4 (SL) -->
-            <div class="product-card fade-up">
+            <div class="product-card fade-up" data-category="srilankan">
                 <div class="card-img-wrapper">
                     <img src="https://images.unsplash.com/photo-1608897013039-887f21d8c804?w=800&q=80" alt="Royal Ceylon Lamprais" loading="lazy">
                     <div class="hover-overlay">
@@ -192,8 +199,8 @@
                 </div>
             </div>
 
-            <!-- Product 5 -->
-            <div class="product-card fade-up delay-1">
+            <!-- Product 5 (Int) -->
+            <div class="product-card fade-up delay-1" data-category="international">
                 <div class="card-img-wrapper">
                     <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=800&q=80" alt="Truffle Mushroom Risotto" loading="lazy">
                     <div class="hover-overlay">
@@ -214,7 +221,7 @@
             </div>
 
             <!-- Product 6 (SL) -->
-            <div class="product-card fade-up delay-2">
+            <div class="product-card fade-up delay-2" data-category="srilankan">
                 <div class="card-img-wrapper">
                     <img src="https://images.unsplash.com/photo-1506084868230-bb9d95c24759?w=800&q=80" alt="Traditional Hopper Feast" loading="lazy">
                     <div class="hover-overlay">
@@ -234,8 +241,8 @@
                 </div>
             </div>
 
-            <!-- Product 7 -->
-            <div class="product-card fade-up">
+            <!-- Product 7 (Int) -->
+            <div class="product-card fade-up" data-category="international">
                 <div class="card-img-wrapper">
                     <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=800&q=80" alt="Pan-Seared Scallops" loading="lazy">
                     <div class="hover-overlay">
@@ -256,7 +263,7 @@
             </div>
 
             <!-- Product 8 (SL) -->
-            <div class="product-card fade-up delay-1">
+            <div class="product-card fade-up delay-1" data-category="srilankan">
                 <div class="card-img-wrapper">
                     <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=800&q=80" alt="Gourmet Kottu Supreme" loading="lazy">
                     <div class="hover-overlay">
@@ -272,6 +279,90 @@
                     <div class="card-footer">
                         <span class="price">$40.00</span>
                         <button class="add-to-cart" data-id="8" aria-label="Order Kottu"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 9 (SL - New) -->
+            <div class="product-card fade-up delay-2" data-category="srilankan">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1514516345957-556ca7d90a29?w=800&q=80" alt="Cinnamon Glazed Duck" loading="lazy">
+                    <div class="hover-overlay">
+                        <button class="view-btn" data-id="9">Quick View</button>
+                    </div>
+                </div>
+                <div class="card-info">
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <h3>Cinnamon Glazed Duck</h3>
+                    <p class="desc">Pan-seared duck breast glazed with organic Ceylon cinnamon and local wild bee honey.</p>
+                    <div class="card-footer">
+                        <span class="price">$65.00</span>
+                        <button class="add-to-cart" data-id="9" aria-label="Order Duck"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 10 (SL - New) -->
+            <div class="product-card fade-up" data-category="srilankan">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80" alt="Berkshire Black Pork Curry" loading="lazy">
+                    <div class="hover-overlay">
+                        <button class="view-btn" data-id="10">Quick View</button>
+                    </div>
+                </div>
+                <div class="card-info">
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>Berkshire Black Pork Curry</h3>
+                    <p class="desc">Slow-cooked premium pork belly in a dark roasted organic island curry, served with rice flour roti.</p>
+                    <div class="card-footer">
+                        <span class="price">$45.00</span>
+                        <button class="add-to-cart" data-id="10" aria-label="Order Pork"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 11 (SL - New) -->
+            <div class="product-card fade-up delay-1" data-category="srilankan">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1510627802779-3d44662111d1?w=800&q=80" alt="Jaffna Spiced Prawn Thermidor" loading="lazy">
+                    <div class="hover-overlay">
+                        <button class="view-btn" data-id="11">Quick View</button>
+                    </div>
+                </div>
+                <div class="card-info">
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <h3>Jaffna Prawn Thermidor</h3>
+                    <p class="desc">Jumbo lagoon prawns stuffed with a creamy blend of Jaffna curry powder, coconut arrack, and gruyère.</p>
+                    <div class="card-footer">
+                        <span class="price">$70.00</span>
+                        <button class="add-to-cart" data-id="11" aria-label="Order Prawns"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 12 (SL - New) -->
+            <div class="product-card fade-up delay-2" data-category="srilankan">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=800&q=80" alt="Devilled Beef Tenderloin" loading="lazy">
+                    <div class="hover-overlay">
+                        <button class="view-btn" data-id="12">Quick View</button>
+                    </div>
+                </div>
+                <div class="card-info">
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                    <h3>Devilled Beef Tenderloin</h3>
+                    <p class="desc">A spicy wok-tossed premium tenderloin with green chillies, onions, and sweet-sour tomato reduction.</p>
+                    <div class="card-footer">
+                        <span class="price">$50.00</span>
+                        <button class="add-to-cart" data-id="12" aria-label="Order Devilled Beef"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
             </div>

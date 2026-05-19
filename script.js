@@ -93,7 +93,7 @@ setInterval(() => {
     goToSlide(nextSlide);
 }, 5000);
 
-// Updated Premium Product Data (Verified, Active Unsplash Photo IDs)
+// Comprehensive Product Data for 12 Dishes (8 Sri Lankan Heritage, 4 International)
 const productsData = {
     1: {
         title: "Wagyu Beef Tenderloin",
@@ -142,6 +142,30 @@ const productsData = {
         price: 40.00,
         img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=800&q=80",
         desc: "A Sri Lankan classic elevated. Finely shredded flaky flatbread wok-tossed with farm-fresh organic eggs, fresh green vegetables, tender curry chicken, and lemongrass."
+    },
+    9: {
+        title: "Cinnamon Glazed Duck",
+        price: 65.00,
+        img: "https://images.unsplash.com/photo-1514516345957-556ca7d90a29?w=800&q=80",
+        desc: "Pan-seared spiced duck breast coated in organic ground Ceylon cinnamon and caramelized wild honey glaze."
+    },
+    10: {
+        title: "Berkshire Black Pork Curry",
+        price: 45.00,
+        img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80",
+        desc: "Tender cubes of Berkshire pork belly simmered in dark, heavy-roasted island spices, cardamom, and thick curry broth. Served with toasted rice flour roti."
+    },
+    11: {
+        title: "Jaffna Spiced Prawn Thermidor",
+        price: 70.00,
+        img: "https://images.unsplash.com/photo-1510627802779-3d44662111d1?w=800&q=80",
+        desc: "Luxe jumbo prawns baked inside shell, stuffed with a decadent cream of Jaffna roasted spice powder, local coconut arrack reduction, and gruyère."
+    },
+    12: {
+        title: "Devilled Beef Tenderloin",
+        price: 50.00,
+        img: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=800&q=80",
+        desc: "Sizzling slices of premium beef tenderloin flash-fried with fresh capsicums, red banana peppers, red onions, and sweet-sour local tomato glaze."
     }
 };
 
@@ -173,6 +197,38 @@ const qtyInput = document.getElementById('qtyInput');
 let currentProductPrice = 0;
 let currentProductId = null;
 
+// Menu Filters Implementation
+const filterBtns = document.querySelectorAll('.filter-btn');
+const productCards = document.querySelectorAll('.product-card');
+
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Toggle active button
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const filterValue = btn.dataset.filter;
+        
+        productCards.forEach(card => {
+            const category = card.dataset.category;
+            if (filterValue === 'all' || category === filterValue) {
+                card.style.display = 'flex';
+                // Trigger reflow for animation
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 10);
+            } else {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.display = 'none';
+                }, 300);
+            }
+        });
+    });
+});
+
 // Open Cart
 function openCart() {
     cartSidebar.classList.add('active');
@@ -201,30 +257,38 @@ function showToast(msg) {
     }, 3000);
 }
 
-// Modal View Handler
-viewBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        const id = e.target.dataset.id;
-        const product = productsData[id];
-        currentProductId = id;
+// Modal View Handler (Works dynamically for dynamically selected items)
+function setupModalTriggers() {
+    const viewBtns = document.querySelectorAll('.view-btn');
+    viewBtns.forEach(btn => {
+        // Clear previous listeners by replacing node
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
         
-        if(product) {
-            modalImg.src = product.img;
-            modalTitle.textContent = product.title;
-            modalPrice.textContent = `$${product.price.toFixed(2)}`;
-            modalDesc.textContent = product.desc;
-            currentProductPrice = product.price;
+        newBtn.addEventListener('click', (e) => {
+            const id = e.target.dataset.id;
+            const product = productsData[id];
+            currentProductId = id;
             
-            // Reset options
-            addonSelect.value = "0";
-            qtyInput.value = "1";
-            updateModalTotal();
-            
-            modalOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
-        }
+            if(product) {
+                modalImg.src = product.img;
+                modalTitle.textContent = product.title;
+                modalPrice.textContent = `$${product.price.toFixed(2)}`;
+                modalDesc.textContent = product.desc;
+                currentProductPrice = product.price;
+                
+                // Reset options
+                addonSelect.value = "0";
+                qtyInput.value = "1";
+                updateModalTotal();
+                
+                modalOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+        });
     });
-});
+}
+setupModalTriggers();
 
 closeModal.addEventListener('click', () => {
     modalOverlay.classList.remove('active');
@@ -319,43 +383,49 @@ window.removeFromCart = function(index) {
 };
 
 // Add to Cart Logic (Quick Add from main menu)
-document.querySelectorAll('.add-to-cart').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const id = btn.dataset.id;
-        const product = productsData[id];
+function setupQuickAddTriggers() {
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
         
-        if (product) {
-            // Check if standard dish is already in cart
-            const existingIndex = cart.findIndex(item => item.id === id && item.addonName === "Standard Preparation");
+        newBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const id = newBtn.dataset.id;
+            const product = productsData[id];
             
-            if (existingIndex > -1) {
-                cart[existingIndex].qty += 1;
-            } else {
-                cart.push({
-                    id: id,
-                    title: product.title,
-                    price: product.price,
-                    img: product.img,
-                    qty: 1,
-                    addonName: "Standard Preparation",
-                    addonPrice: 0
-                });
+            if (product) {
+                // Check if standard dish is already in cart
+                const existingIndex = cart.findIndex(item => item.id === id && item.addonName === "Standard Preparation");
+                
+                if (existingIndex > -1) {
+                    cart[existingIndex].qty += 1;
+                } else {
+                    cart.push({
+                        id: id,
+                        title: product.title,
+                        price: product.price,
+                        img: product.img,
+                        qty: 1,
+                        addonName: "Standard Preparation",
+                        addonPrice: 0
+                    });
+                }
+                
+                updateCartUI();
+                
+                // Add pulse animation to cart button
+                const cartIcon = document.querySelector('.cart-btn i');
+                cartIcon.style.transform = 'scale(1.3)';
+                setTimeout(() => {
+                    cartIcon.style.transform = 'scale(1)';
+                }, 200);
+                
+                showToast(`Added 1 ${product.title} to your order.`);
             }
-            
-            updateCartUI();
-            
-            // Add pulse animation to cart button
-            const cartIcon = document.querySelector('.cart-btn i');
-            cartIcon.style.transform = 'scale(1.3)';
-            setTimeout(() => {
-                cartIcon.style.transform = 'scale(1)';
-            }, 200);
-            
-            showToast(`Added 1 ${product.title} to your order.`);
-        }
+        });
     });
-});
+}
+setupQuickAddTriggers();
 
 // Add to Cart Logic (From Modal Popup)
 document.querySelector('.add-to-cart-modal').addEventListener('click', () => {

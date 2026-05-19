@@ -67,7 +67,7 @@ ul {
 
 .section-header {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 .section-header h2 {
@@ -488,6 +488,36 @@ ul {
     margin-top: 5px;
 }
 
+/* Category Filters Styling */
+.menu-filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+    padding: 10px 25px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: var(--trans-fast);
+}
+
+.filter-btn:hover, .filter-btn.active {
+    background: var(--accent-gold);
+    color: var(--bg-dark);
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
 /* Product Grid (Dishes) */
 .product-grid {
     display: grid;
@@ -501,13 +531,15 @@ ul {
     border-radius: 8px;
     overflow: hidden;
     backdrop-filter: blur(10px);
-    transition: all 0.4s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .product-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px) !important;
     box-shadow: 0 15px 30px rgba(0,0,0,0.5), 0 0 20px rgba(212, 175, 55, 0.15);
     border-color: var(--border-color);
     background: var(--bg-card-hover);
@@ -515,7 +547,7 @@ ul {
 
 .card-img-wrapper {
     position: relative;
-    height: 240px; /* Reduced from 350px so images are NOT too big */
+    height: 240px; 
     overflow: hidden;
     background: #111;
 }
@@ -921,7 +953,7 @@ ul {
 .modal-img {
     flex: 1;
     background: #111;
-    max-height: 500px; /* Constrained image */
+    max-height: 500px; 
 }
 
 .modal-img img {
