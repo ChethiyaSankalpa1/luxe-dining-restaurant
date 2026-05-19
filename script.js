@@ -93,7 +93,7 @@ setInterval(() => {
     goToSlide(nextSlide);
 }, 5000);
 
-// Updated Premium Product Data (8 Dishes including Sri Lankan Gourmet)
+// Updated Premium Product Data (Verified, Active Unsplash Photo IDs)
 const productsData = {
     1: {
         title: "Wagyu Beef Tenderloin",
@@ -104,43 +104,43 @@ const productsData = {
     2: {
         title: "Ceylon Mud Crab Curry",
         price: 95.00,
-        img: "https://images.unsplash.com/photo-1626804475315-9644b37a2f4b?w=800&q=80",
+        img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&q=80",
         desc: "Handpicked wild Ceylon mud crab simmered in a dense, richly spiced, toasted local curry blend and fresh coconut cream."
     },
     3: {
         title: "Butter Poached Lobster",
         price: 95.00,
-        img: "https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?w=800&q=80",
+        img: "https://images.unsplash.com/photo-1559737712-4217316a7f0f?w=800&q=80",
         desc: "Fresh caught Maine lobster tail, slow-poached in herb butter, accompanied by saffron risotto and lemon foam."
     },
     4: {
         title: "Royal Ceylon Lamprais",
         price: 55.00,
-        img: "https://images.unsplash.com/photo-1618413813958-86d38e8ec436?w=800&q=80",
+        img: "https://images.unsplash.com/photo-1608897013039-887f21d8c804?w=800&q=80",
         desc: "Steamed rice cooked in spiced mutton stock, served with frikkadels, caramelized onion sambol, aubergine pahi, and mixed meat, slow-baked in a banana leaf."
     },
     5: {
         title: "Truffle Mushroom Risotto",
         price: 65.00,
-        img: "https://images.unsplash.com/photo-1626844131082-256783844137?w=800&q=80",
+        img: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=800&q=80",
         desc: "Creamy arborio rice with wild forest mushrooms, finished with aged Parmigiano-Reggiano and freshly shaved black truffle."
     },
     6: {
         title: "Traditional Hopper Feast",
         price: 35.00,
-        img: "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?w=800&q=80",
+        img: "https://images.unsplash.com/photo-1506084868230-bb9d95c24759?w=800&q=80",
         desc: "Light, crispy-edged rice crepes baked with free-range eggs. Served alongside premium Seeni Sambol and aromatic coconut Lunu Miris."
     },
     7: {
         title: "Pan-Seared Scallops",
         price: 75.00,
-        img: "https://images.unsplash.com/photo-1599921841143-819065a55cc6?w=800&q=80",
+        img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=800&q=80",
         desc: "Jumbo Hokkaido scallops seared to a golden brown, served over a bed of cauliflower silk and pancetta crisp."
     },
     8: {
         title: "Gourmet Kottu Supreme",
         price: 40.00,
-        img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&q=80",
+        img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=800&q=80",
         desc: "A Sri Lankan classic elevated. Finely shredded flaky flatbread wok-tossed with farm-fresh organic eggs, fresh green vegetables, tender curry chicken, and lemongrass."
     }
 };
