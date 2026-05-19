@@ -509,7 +509,7 @@ document.querySelector('.add-to-cart-modal').addEventListener('click', () => {
 document.getElementById('checkoutBtn').addEventListener('click', () => {
     if (cart.length > 0) {
         const preferenceText = diningPreference === "dinein" ? "Dine-In" : "Takeaway";
-        showToast(`Processing your ${preferenceText} order... Thank you for choosing Luxe!`);
+        showToast(`Processing your ${preferenceText} order... Thank you for choosing Zentro Fab!`);
         cart = [];
         updateCartUI();
         setTimeout(closeCart, 1500);
