@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zentro Fab - Operational Staff Portal</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://images.unsplash.com/photo-1544025162-8315ea076231?w=32&h=32&fit=crop&q=80">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Theme CSS Styles -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Standalone Portal Layout Customizations */
+        body {
+            background: #050505;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 80%);
+        }
+
+        .portal-bg-decor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.02) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.02) 0%, transparent 40%);
+        }
+
+        /* Inline Login Panel */
+        .login-wrapper {
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .login-card-standalone {
+            background: rgba(18, 18, 18, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 30px rgba(212, 175, 55, 0.05);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .login-card-standalone.shake {
+            animation: shakeEffect 0.5s ease-in-out;
+            border-color: #e74c3c !important;
+            box-shadow: 0 0 30px rgba(231, 76, 60, 0.2) !important;
+        }
+
+        .portal-logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .portal-logo span {
+            color: var(--accent-gold);
+            font-style: italic;
+        }
+
+        /* Dashboard Standalone Rules */
+        .admin-dashboard-container.standalone {
+            width: 95vw;
+            max-width: 1300px;
+            height: 90vh;
+            background: rgba(10, 10, 10, 0.95);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.9), 0 0 50px rgba(212, 175, 55, 0.03);
+            backdrop-filter: blur(20px);
+            animation: fadeIn 0.4s ease;
+        }
+
+        .admin-content-area::-webkit-scrollbar {
+            width: 6px;
+        }
+        .admin-content-area::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.01);
+        }
+        .admin-content-area::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.15);
+            border-radius: 3px;
+        }
+        .admin-content-area::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-gold);
+        }
+    </style>
+</head>
+<body>
+    <div class="portal-bg-decor"></div>
+
+    <!-- Inline Lock Panel -->
+    <div class="login-wrapper" id="standaloneLogin">
+        <div class="login-card-standalone">
+            <div class="portal-logo">ZENTRO <span>FAB</span></div>
+            <div class="ticket-header" style="margin-bottom: 25px;">
+                <i class="fas fa-shield-halved success-icon" style="color: var(--accent-gold); filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3)); font-size: 2.5rem; margin-bottom: 15px; display: block;"></i>
+                <h2 style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--text-primary); margin-bottom: 5px;">Staff Portal</h2>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4;">Enter operational passcode to unlock the kitchen and seating matrices.</p>
+            </div>
+            
+            <form id="adminLoginForm" style="display: flex; flex-direction: column; gap: 20px;">
+                <div class="form-group" style="display: flex; flex-direction: column; gap: 8px;">
+                    <label for="adminPasscode" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); text-align: left;"><i class="fas fa-key" style="color: var(--accent-gold); margin-right: 4px;"></i> Passcode</label>
+                    <input type="password" id="adminPasscode" placeholder="••••••••" required style="padding: 14px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--glass-border); border-radius: 6px; color: var(--text-primary); text-align: center; font-size: 1.3rem; letter-spacing: 6px; font-family: monospace; outline: none; transition: 0.3s; width: 100%; box-sizing: border-box;">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" style="display: flex; justify-content: center; align-items: center; gap: 8px; padding: 14px; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;"><i class="fas fa-unlock"></i> Unlock Dashboard</button>
+                <p id="adminLoginError" class="d-none" style="color: #e74c3c; font-size: 0.8rem; text-align: center; font-weight: 500; margin: 0; text-shadow: 0 0 10px rgba(231, 76, 60, 0.2);"><i class="fas fa-circle-exclamation"></i> Access Denied. Incorrect Passcode.</p>
+            </form>
+            
+            <div style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px;">
+                <a href="index.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-gold)'" onmouseout="this.style.color='var(--text-secondary)'"><i class="fas fa-arrow-left-long" style="margin-right: 6px;"></i> Return to Guest Website</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inline Dashboard Layout (Hidden by Default) -->
+    <div class="admin-dashboard-container standalone d-none" id="adminDashboard">
+        <div class="admin-header">
+            <div class="admin-brand">
+                <span class="brand-text">ZENTRO <span>FAB</span></span>
+                <span class="badge">Operational Hub</span>
+            </div>
+            <div class="admin-nav-tabs">
+                <button class="admin-tab active" data-tab="tabReservations"><i class="fas fa-calendar-check"></i> Bookings</button>
+                <button class="admin-tab" data-tab="tabOrders"><i class="fas fa-utensils"></i> Active Orders</button>
+                <button class="admin-tab" data-tab="tabAnalytics"><i class="fas fa-chart-line"></i> Insights</button>
+            </div>
+            <button class="btn btn-secondary" id="logoutAdminBtn" style="padding: 8px 16px; font-size: 0.8rem; display: flex; align-items: center; gap: 8px;"><i class="fas fa-power-off"></i> Exit Hub</button>
+        </div>
+        
+        <div class="admin-content-area">
+            <!-- Tab 1: Reservations -->
+            <div class="admin-tab-pane active" id="tabReservations">
+                <div class="pane-header">
+                    <h3>Active Reservations</h3>
+                    <p>Track guest seatings and environment requests.</p>
+                </div>
+                <div class="reservations-grid" id="adminResGrid">
+                    <!-- Reservations injected here dynamically -->
+                </div>
+            </div>
+
+            <!-- Tab 2: Active Orders -->
+            <div class="admin-tab-pane" id="tabOrders">
+                <div class="pane-header">
+                    <h3>Kitchen Operations</h3>
+                    <p>Advance cooking stages and monitor guest checkouts.</p>
+                </div>
+                <div class="orders-list-panel" id="adminOrdersPanel">
+                    <!-- Active orders injected here dynamically -->
+                </div>
+            </div>
+
+            <!-- Tab 3: Insights -->
+            <div class="admin-tab-pane" id="tabAnalytics">
+                <div class="pane-header">
+                    <h3>Restaurant Insights</h3>
+                    <p>Key metrics of culinary performance.</p>
+                </div>
+                <div class="analytics-metrics-grid">
+                    <div class="metric-card">
+                        <i class="fas fa-coins metric-icon"></i>
+                        <div class="metric-info">
+                            <span class="metric-label">Estimated Revenue</span>
+                            <h4 class="metric-value" id="statRevenue">$0.00</h4>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <i class="fas fa-users-viewfinder metric-icon"></i>
+                        <div class="metric-info">
+                            <span class="metric-label">Seating Rate</span>
+                            <h4 class="metric-value" id="statSeated">0 / 40 Guests</h4>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <i class="fas fa-bowl-food metric-icon"></i>
+                        <div class="metric-info">
+                            <span class="metric-label">Dishes Crafting</span>
+                            <h4 class="metric-value" id="statDishes">0</h4>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="popular-dishes-box" style="margin-top: 30px; background: rgba(255,255,255,0.01); border: 1px solid var(--glass-border); padding: 25px; border-radius: 8px;">
+                    <h4 style="font-family: var(--font-heading); color: var(--accent-gold); margin-bottom: 15px; display: flex; align-items: center; gap: 8px; font-size: 1.1rem; letter-spacing: 0.5px;"><i class="fas fa-fire-flame-curved"></i> Most Popular Selections</h4>
+                    <ul class="popular-dishes-list" style="list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0;" id="statPopularList">
+                        <!-- Popular items injected -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMsg">Action completed successfully</span>
+    </div>
+
+    <!-- Portal Script -->
+    <script src="admin.js"></script>
+</body>
+</html>

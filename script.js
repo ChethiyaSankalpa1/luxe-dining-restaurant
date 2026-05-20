@@ -293,6 +293,25 @@ function showToast(msg) {
     }, 3000);
 }
 
+// Ingredient Heritage Stories database
+const heritageStories = {
+    1: "Zentro Fab's Wagyu is glazed with a reduction infused with organic Ceylon Cardamom sourced from the foothills of Knuckles Range, blending rich Japanese marbled fat with delicate highland citrus-spice notes.",
+    2: "Harvested from the tranquil brackish waters of Chilaw lagoons. We toast our own house Curry Powder—a multi-generation recipe featuring dry-roasted Ceylon Coriander, Fennel seeds, and wild Curry Leaves (Karapincha).",
+    3: "Dotted with saffron oil and a splash of local Coconut Arrack. Fresh southern-coast lobster represents the pearl of the Indian Ocean, poached at a precise 58°C to retain its pristine ocean sweetness.",
+    4: "An extraordinary Dutch Burgher heirloom. Rice is simmered in high-quality Mutton bone broth, baked in charred banana leaves which impart a signature smoky aroma, together with Sri Lankan Frikkadels (spiced meatballs).",
+    5: "Arborio grains are finished with cold-pressed extra virgin coconut oil alongside fresh Italian black truffles, creating a highly unique velvet texture with a gentle tropical whisper.",
+    6: "Made using fermented red rice batter and sparkling palm toddy. The resulting lacey, crispy bowl-shaped hoppers are seasoned with a fiery Lunu Miris of crushed Maldive fish, red onions, and bird's eye chili.",
+    7: "Paired with a purée of local manioc (cassava) root and finished with micro-herbs harvested from our in-house hydroponic garden, blending ocean brine with earthy Sri Lankan roots.",
+    8: "Crafted with hand-stretched Godamba flatbread shredded and wok-tossed with aromatic lemongrass, ginger-garlic paste, organic eggs, and rich coconut chicken curry.",
+    9: "We glaze organic duck breast with a premium glaze made of Cinnamomum Verum (True Ceylon Cinnamon) from the pristine slopes of Kandy, offering a sweet, warm flavor profile that is completely unique.",
+    10: "Slow-cooked for 6 hours using a traditional Sri Lankan 'Goraka' (Garcinia Cambogia) paste which naturally tenderizes the fat, combined with heavily dry-roasted local black curry powder.",
+    11: "This dish infuses French Thermidor with a legendary Jaffna 'Kool' spice mix. Plump lagoon prawns are baked in a rich cream of dry chili, cumin, tamarind, and a splash of aged palm arrack.",
+    12: "Our devilled sauce features locally brewed toddy vinegar and high-heat roasted red banana peppers, creating the perfect balance of intense spice, tang, and caramelized onion sweetness.",
+    13: "The crown jewel of Sri Lankan desserts. We use dark, organic Kithul Jaggery tapped by hand from wild palm trees, double-steamed with farm-fresh organic eggs, cardamom, and fresh coconut cream.",
+    14: "Flavored with Kashmiri saffron threads and sweet Rosewater, garnished with a caramelized crunch of Sri Lankan cashew nuts harvested in the golden dry zones of Puttalam.",
+    15: "Our rich 70% dark chocolate cake features a hidden heart liquid center subtly spiced with a single drop of wild clove extract, highlighting the island's historical identity as a global spice hub."
+};
+
 // Modal View Handler
 function setupModalTriggers() {
     const viewBtns = document.querySelectorAll('.view-btn');
@@ -317,6 +336,16 @@ function setupModalTriggers() {
                 qtyInput.value = "1";
                 updateModalTotal();
                 
+                // Reset heritage story to collapsed and populate text
+                const heritageStoryContent = document.getElementById('heritageStoryContent');
+                if (heritageStoryContent) {
+                    heritageStoryContent.classList.add('d-none');
+                }
+                const heritageStoryText = document.getElementById('heritageStoryText');
+                if (heritageStoryText) {
+                    heritageStoryText.textContent = heritageStories[id] || "No heritage story available for this selection.";
+                }
+                
                 modalOverlay.classList.add('active');
                 document.body.style.overflow = 'hidden'; // Prevent scrolling
             }
@@ -324,6 +353,15 @@ function setupModalTriggers() {
     });
 }
 setupModalTriggers();
+
+// Bind Heritage Story button toggler
+const heritageStoryBtn = document.getElementById('heritageStoryBtn');
+const heritageStoryContent = document.getElementById('heritageStoryContent');
+if (heritageStoryBtn && heritageStoryContent) {
+    heritageStoryBtn.addEventListener('click', () => {
+        heritageStoryContent.classList.toggle('d-none');
+    });
+}
 
 closeModal.addEventListener('click', () => {
     modalOverlay.classList.remove('active');
@@ -505,26 +543,507 @@ document.querySelector('.add-to-cart-modal').addEventListener('click', () => {
     }
 });
 
-// Checkout Action
-document.getElementById('checkoutBtn').addEventListener('click', () => {
-    if (cart.length > 0) {
-        const preferenceText = diningPreference === "dinein" ? "Dine-In" : "Takeaway";
-        showToast(`Processing your ${preferenceText} order... Thank you for choosing Zentro Fab!`);
+// --- AUDIO CONTROLLER & SOUND FX ---
+const ambientMusic = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3');
+ambientMusic.loop = true;
+ambientMusic.volume = 0.25;
+
+const tickSound = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
+tickSound.volume = 0.15;
+
+const successChime = new Audio('https://www.soundjay.com/buttons/sounds/button-09.mp3');
+successChime.volume = 0.3;
+
+function playTick() {
+    tickSound.currentTime = 0;
+    tickSound.play().catch(e => console.log('Audio playback prevented by browser policy'));
+}
+
+function playChime() {
+    successChime.currentTime = 0;
+    successChime.play().catch(e => console.log('Audio playback prevented by browser policy'));
+}
+
+// Global click audio delegate for tactile sound effects
+document.body.addEventListener('click', (e) => {
+    const target = e.target.closest('button, a, .zone-card, .type-option, .qty-btn, .filter-btn, .view-btn, .add-to-cart, .add-to-cart-modal');
+    if (target) {
+        playTick();
+    }
+});
+
+// Ambient Music Player Controller
+const playerToggleBtn = document.getElementById('playerToggleBtn');
+let isMusicPlaying = false;
+
+if (playerToggleBtn) {
+    playerToggleBtn.addEventListener('click', () => {
+        const icon = playerToggleBtn.querySelector('i');
+        if (isMusicPlaying) {
+            ambientMusic.pause();
+            playerToggleBtn.classList.remove('playing');
+            icon.className = 'fas fa-volume-xmark';
+            isMusicPlaying = false;
+            showToast("Ambient music muted");
+        } else {
+            ambientMusic.play().then(() => {
+                playerToggleBtn.classList.add('playing');
+                icon.className = 'fas fa-volume-high';
+                isMusicPlaying = true;
+                showToast("Ambient music playing");
+            }).catch(err => {
+                console.error("Audio play failed:", err);
+                showToast("Click again to play music");
+            });
+        }
+    });
+}
+
+// --- TABLE RESERVATIONS LOGIC ---
+const zoneCards = document.querySelectorAll('.zone-card');
+const selectedZoneInput = document.getElementById('selectedZoneInput');
+
+// Zone Selection Card Handlers
+zoneCards.forEach(card => {
+    card.addEventListener('click', () => {
+        zoneCards.forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        const zone = card.dataset.zone;
+        if (selectedZoneInput) {
+            selectedZoneInput.value = zone;
+        }
+    });
+});
+
+// Pre-fill tomorrow's date on the date picker
+const resDateInput = document.getElementById('resDate');
+if (resDateInput) {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const yyyy = tomorrow.getFullYear();
+    const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+    const dd = String(tomorrow.getDate()).padStart(2, '0');
+    resDateInput.value = `${yyyy}-${mm}-${dd}`;
+    resDateInput.min = `${yyyy}-${mm}-${dd}`;
+}
+
+// Reservation Form Submit Handler
+const reservationForm = document.getElementById('reservationForm');
+const ticketModal = document.getElementById('ticketModal');
+
+if (reservationForm) {
+    reservationForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById('resName').value.trim();
+        const phone = document.getElementById('resPhone').value.trim();
+        const date = document.getElementById('resDate').value;
+        const time = document.getElementById('resTime').value;
+        const guests = document.getElementById('resGuests').value;
+        const zone = selectedZoneInput ? selectedZoneInput.value : "Skyline Balcony";
+        
+        if (!name || !phone || !date || !time) {
+            showToast("Please fill in all reservation details.");
+            return;
+        }
+        
+        // Generate dynamic ticket code (e.g. ZF-29402-SKY)
+        const randomNum = Math.floor(10000 + Math.random() * 90000);
+        const zoneShort = zone.split(' ').map(w => w[0]).join('').toUpperCase();
+        const ticketCode = `ZF-${randomNum}-${zoneShort}`;
+        
+        // Populate golden ticket stub
+        document.getElementById('ticketGuestName').textContent = name;
+        document.getElementById('ticketDate').textContent = date;
+        document.getElementById('ticketTime').textContent = time;
+        document.getElementById('ticketGuestCount').textContent = `${guests} ${guests == 1 ? 'Guest' : 'Guests'}`;
+        document.getElementById('ticketZone').textContent = zone;
+        document.getElementById('ticketCode').textContent = ticketCode;
+        
+        // Play success chime and open modal
+        playChime();
+        showToast("Table reserved successfully!");
+        
+        if (ticketModal) {
+            ticketModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Push reservation to localStorage database
+        const localReservations = JSON.parse(localStorage.getItem('zf_reservations')) || [];
+        localReservations.push({
+            id: ticketCode,
+            name: name,
+            phone: phone,
+            date: date,
+            time: time,
+            guests: parseInt(guests) || 2,
+            zone: zone,
+            status: "pending"
+        });
+        localStorage.setItem('zf_reservations', JSON.stringify(localReservations));
+        
+        reservationForm.reset();
+        // Reset guests range text display to default (2 Guests)
+        const guestCountDisplay = document.getElementById('guestCountDisplay');
+        if (guestCountDisplay) {
+            guestCountDisplay.textContent = "2 Guests";
+        }
+    });
+}
+
+// Close Ticket modal logic
+const closeTicketModal = document.getElementById('closeTicketModal');
+const closeTicketSuccessBtn = document.getElementById('closeTicketSuccessBtn');
+
+function hideTicketModal() {
+    if (ticketModal) {
+        ticketModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+if (closeTicketModal) closeTicketModal.addEventListener('click', hideTicketModal);
+if (closeTicketSuccessBtn) closeTicketSuccessBtn.addEventListener('click', hideTicketModal);
+if (ticketModal) {
+    ticketModal.addEventListener('click', (e) => {
+        if (e.target === ticketModal) {
+            hideTicketModal();
+        }
+    });
+}
+
+// --- MULTI-STEP CHECKOUT & TRACKER LOGIC ---
+const cartStepItems = document.getElementById('cartStepItems');
+const cartStepCheckout = document.getElementById('cartStepCheckout');
+const cartStepTracker = document.getElementById('cartStepTracker');
+
+function showCartStep(stepId) {
+    if (cartStepItems && cartStepCheckout && cartStepTracker) {
+        cartStepItems.classList.remove('active');
+        cartStepCheckout.classList.remove('active');
+        cartStepTracker.classList.remove('active');
+        
+        if (stepId === 1) {
+            cartStepItems.classList.add('active');
+        } else if (stepId === 2) {
+            cartStepCheckout.classList.add('active');
+        } else if (stepId === 3) {
+            cartStepTracker.classList.add('active');
+        }
+    }
+}
+
+// Step 1: Click "Proceed to Checkout"
+const checkoutBtn = document.getElementById('checkoutBtn');
+if (checkoutBtn) {
+    checkoutBtn.addEventListener('click', () => {
+        if (cart.length > 0) {
+            showCartStep(2);
+            
+            // Populate Checkout Summary
+            const chkItemsCount = document.getElementById('chkItemsCount');
+            const chkMiniItems = document.getElementById('chkMiniItems');
+            const chkTotal = document.getElementById('chkTotal');
+            
+            let total = 0;
+            let count = 0;
+            chkMiniItems.innerHTML = '';
+            
+            cart.forEach(item => {
+                const itemCost = (item.price + item.addonPrice) * item.qty;
+                total += itemCost;
+                count += item.qty;
+                
+                const enhancementText = item.addonName !== "Standard Preparation" ? ` (+ ${item.addonName})` : '';
+                chkMiniItems.innerHTML += `
+                    <div class="mini-item">
+                        <span>${item.qty}x ${item.title}${enhancementText}</span>
+                        <span>$${itemCost.toFixed(2)}</span>
+                    </div>
+                `;
+            });
+            
+            if (chkItemsCount) chkItemsCount.textContent = count;
+            if (chkTotal) chkTotal.textContent = `$${total.toFixed(2)}`;
+            
+            // Adjust fields based on preference
+            const dineinFields = document.getElementById('dineinFields');
+            const takeawayFields = document.getElementById('takeawayFields');
+            if (diningPreference === "dinein") {
+                if (dineinFields) dineinFields.classList.remove('d-none');
+                if (takeawayFields) takeawayFields.classList.add('d-none');
+            } else {
+                if (dineinFields) dineinFields.classList.add('d-none');
+                if (takeawayFields) takeawayFields.classList.remove('d-none');
+            }
+        } else {
+            showToast("Your order is empty. Please add items to checkout.");
+        }
+    });
+}
+
+// Back to Cart from Checkout
+const backToCartBtn = document.getElementById('backToCartBtn');
+if (backToCartBtn) {
+    backToCartBtn.addEventListener('click', () => {
+        showCartStep(1);
+    });
+}
+
+// Close cart buttons inside steps
+const closeCartBtn2 = document.getElementById('closeCartBtn2');
+if (closeCartBtn2) closeCartBtn2.addEventListener('click', closeCart);
+
+const closeCartBtn3 = document.getElementById('closeCartBtn3');
+if (closeCartBtn3) closeCartBtn3.addEventListener('click', closeCart);
+
+// --- SIMULATED KITCHEN TIMELINE TRACKER ENGINE ---
+let trackerTimers = [];
+window.lastTrackerStep = 1;
+
+function clearTrackerTimers() {
+    trackerTimers.forEach(timer => clearTimeout(timer));
+    trackerTimers = [];
+}
+
+function updateOrderStepInLocalStorage(orderId, stepVal) {
+    const localOrders = JSON.parse(localStorage.getItem('zf_activeOrders')) || [];
+    const index = localOrders.findIndex(o => o.id === orderId);
+    if (index !== -1) {
+        localOrders[index].step = stepVal;
+        localStorage.setItem('zf_activeOrders', JSON.stringify(localOrders));
+    }
+}
+
+function updateGuestTrackerUI(stepValue) {
+    const trackerHeading = document.getElementById('trackerHeading');
+    const trackerSub = document.getElementById('trackerSub');
+    const trackerEstim = document.getElementById('trackerEstim');
+    
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    const step3 = document.getElementById('step3');
+    const step4 = document.getElementById('step4');
+    
+    // Set time placed if not set
+    const timePlacedEl = document.getElementById('timePlaced');
+    if (timePlacedEl && (!timePlacedEl.textContent || timePlacedEl.textContent === '--:--')) {
+        const now = new Date();
+        let hours = now.getHours();
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        timePlacedEl.textContent = `${hours}:${minutes} ${ampm}`;
+    }
+
+    // Reset classes
+    if (step1) step1.className = 'timeline-step';
+    if (step2) step2.className = 'timeline-step';
+    if (step3) step3.className = 'timeline-step';
+    if (step4) step4.className = 'timeline-step';
+
+    if (stepValue >= 1) {
+        if (step1) step1.className = 'timeline-step active';
+    }
+    if (stepValue >= 2) {
+        if (step1) step1.className = 'timeline-step completed';
+        if (step2) step2.className = 'timeline-step active';
+    }
+    if (stepValue >= 3) {
+        if (step1) step1.className = 'timeline-step completed';
+        if (step2) step2.className = 'timeline-step completed';
+        if (step3) step3.className = 'timeline-step active';
+    }
+    if (stepValue >= 4) {
+        if (step1) step1.className = 'timeline-step completed';
+        if (step2) step2.className = 'timeline-step completed';
+        if (step3) step3.className = 'timeline-step completed';
+        if (step4) step4.className = 'timeline-step active';
+    }
+
+    if (stepValue === 1) {
+        if (trackerHeading) trackerHeading.textContent = "Order Placed";
+        if (trackerSub) trackerSub.textContent = "Your details have been confirmed by our maître d'.";
+        if (trackerEstim) trackerEstim.textContent = "~20 mins";
+    } else if (stepValue === 2) {
+        if (trackerHeading) trackerHeading.textContent = "Chef Preparing";
+        if (trackerSub) trackerSub.textContent = "Artisanal handcrafting and seasoning in progress.";
+        if (trackerEstim) trackerEstim.textContent = "~15 mins";
+    } else if (stepValue === 3) {
+        if (trackerHeading) trackerHeading.textContent = "Plating & Embellishment";
+        if (trackerSub) trackerSub.textContent = "Delicate presentation, micro-herb placements & detailing.";
+        if (trackerEstim) trackerEstim.textContent = "~5 mins";
+    } else if (stepValue === 4) {
+        if (trackerHeading) trackerHeading.textContent = "Ready to Serve";
+        const preferenceText = diningPreference === "dinein" ? "Ready to Serve at Table" : "Ready for Pickup";
+        const step4Label = document.getElementById('step4Label');
+        if (step4Label) step4Label.textContent = preferenceText;
+        if (trackerSub) trackerSub.textContent = "Your fine-dining masterpiece is ready to enjoy.";
+        if (trackerEstim) trackerEstim.textContent = "Ready";
+    }
+}
+
+function startKitchenTracker() {
+    clearTrackerTimers();
+    window.lastTrackerStep = 1;
+    
+    // Set initial step
+    updateGuestTrackerUI(1);
+    
+    // Step 2: Preparing (after 4s)
+    trackerTimers.push(setTimeout(() => {
+        window.lastTrackerStep = 2;
+        updateGuestTrackerUI(2);
+        updateOrderStepInLocalStorage(window.currentGuestOrderId, 2);
+        showToast("Chef started cooking your signature selection!");
+        playTick();
+    }, 4000));
+    
+    // Step 3: Plating & Quality Check (after 9s)
+    trackerTimers.push(setTimeout(() => {
+        window.lastTrackerStep = 3;
+        updateGuestTrackerUI(3);
+        updateOrderStepInLocalStorage(window.currentGuestOrderId, 3);
+        showToast("Your dishes are being artistically detailed and plated.");
+        playTick();
+    }, 9000));
+    
+    // Step 4: Ready (after 14s)
+    trackerTimers.push(setTimeout(() => {
+        window.lastTrackerStep = 4;
+        updateGuestTrackerUI(4);
+        updateOrderStepInLocalStorage(window.currentGuestOrderId, 4);
+        showToast("Order complete! Bon Appétit!");
+        playChime();
+    }, 14000));
+}
+
+// Storage listener to sync kitchen status changes from the Staff Portal live
+window.addEventListener('storage', (e) => {
+    if (e.key === 'zf_activeOrders' && window.currentGuestOrderId) {
+        const orders = JSON.parse(e.newValue || '[]');
+        const myOrder = orders.find(o => o.id === window.currentGuestOrderId);
+        if (myOrder) {
+            const serverStep = myOrder.step;
+            if (window.lastTrackerStep !== serverStep) {
+                clearTrackerTimers();
+                updateGuestTrackerUI(serverStep);
+                window.lastTrackerStep = serverStep;
+                if (serverStep === 2) {
+                    showToast("Chef started cooking your signature selection!");
+                    playTick();
+                } else if (serverStep === 3) {
+                    showToast("Your dishes are being artistically detailed and plated.");
+                    playTick();
+                } else if (serverStep === 4) {
+                    showToast("Order complete! Bon Appétit!");
+                    playChime();
+                }
+            }
+        }
+    }
+});
+
+// Step 2 Form Submit: Transition to Step 3 Tracker
+const checkoutForm = document.getElementById('checkoutForm');
+if (checkoutForm) {
+    checkoutForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById('chkName').value.trim();
+        const phone = document.getElementById('chkPhone').value.trim();
+        
+        if (!name || !phone) {
+            showToast("Please fill in your details.");
+            return;
+        }
+        
+        // Success transitions
+        playChime();
+        showToast("Order placed successfully!");
+        showCartStep(3);
+        
+        // Extract details for the Admin Portal activeOrders database before clearing cart
+        const orderTableOrTime = diningPreference === "dinein" 
+            ? `Table ${document.getElementById('chkTable').value}` 
+            : document.getElementById('chkTime').value;
+        
+        let orderTotal = 0;
+        const orderItems = cart.map(item => {
+            const cost = (item.price + item.addonPrice) * item.qty;
+            orderTotal += cost;
+            return {
+                title: item.title,
+                qty: item.qty,
+                price: item.price,
+                addonName: item.addonName,
+                addonPrice: item.addonPrice
+            };
+        });
+
+        const randomId = Math.floor(10000 + Math.random() * 90000);
+        const orderId = `ZF-${randomId}`;
+
+        const newOrder = {
+            id: orderId,
+            name: name,
+            phone: phone,
+            tableOrTime: orderTableOrTime,
+            type: diningPreference,
+            items: orderItems,
+            total: orderTotal,
+            step: 1 // Placed
+        };
+
+        const localOrders = JSON.parse(localStorage.getItem('zf_activeOrders')) || [];
+        localOrders.push(newOrder);
+        localStorage.setItem('zf_activeOrders', JSON.stringify(localOrders));
+
+        window.currentGuestOrderId = orderId;
+        
+        // Clear items and update sidebar UI
         cart = [];
         updateCartUI();
-        setTimeout(closeCart, 1500);
-    } else {
-        showToast("Your order is empty. Please add items to checkout.");
+        
+        startKitchenTracker();
+    });
+}
+
+// Dismiss tracker button handler
+const closeTrackerBtn = document.getElementById('closeTrackerBtn');
+if (closeTrackerBtn) {
+    closeTrackerBtn.addEventListener('click', () => {
+        clearTrackerTimers();
+        showCartStep(1);
+        closeCart();
+        if (checkoutForm) checkoutForm.reset();
+    });
+}
+
+// --- MICRO-ANIMATIONS & PARALLAX ---
+// Hero Content Parallax Scroll Effect
+const heroContent = document.querySelector('.hero-content');
+window.addEventListener('scroll', () => {
+    if (heroContent) {
+        const scrolled = window.scrollY;
+        if (scrolled < window.innerHeight) {
+            heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
+            heroContent.style.opacity = 1 - (scrolled / window.innerHeight * 1.3);
+        }
     }
 });
 
 // Newsletter Form
 const newsletterForm = document.getElementById('newsletterForm');
-newsletterForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = newsletterForm.querySelector('input').value;
-    if(email) {
-        showToast("Subscribed to newsletter successfully!");
-        newsletterForm.reset();
-    }
-});
+if (newsletterForm) {
+    newsletterForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = newsletterForm.querySelector('input').value;
+        if(email) {
+            showToast("Subscribed to newsletter successfully!");
+            newsletterForm.reset();
+        }
+    });
+}

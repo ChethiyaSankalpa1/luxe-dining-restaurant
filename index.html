@@ -43,6 +43,7 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#menu">Menu</a></li>
                 <li><a href="#experience">Experience</a></li>
+                <li><a href="#reservations">Reservations</a></li>
                 <li><a href="#testimonials">Reviews</a></li>
             </ul>
             <div class="nav-actions">
@@ -65,6 +66,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#menu">Menu</a></li>
             <li><a href="#experience">Experience</a></li>
+            <li><a href="#reservations">Reservations</a></li>
             <li><a href="#testimonials">Reviews</a></li>
         </ul>
     </div>
@@ -77,7 +79,7 @@
             <p class="fade-up delay-1">Exquisite heritage culinary creations & contemporary fine arts</p>
             <div class="hero-btns fade-up delay-2">
                 <a href="#menu" class="btn btn-primary">View Menu</a>
-                <a href="#contact" class="btn btn-secondary">Reserve a Table</a>
+                <a href="#reservations" class="btn btn-secondary">Reserve a Table</a>
             </div>
         </div>
     </header>
@@ -479,6 +481,122 @@
         </div>
     </section>
 
+    <!-- Reservation Section -->
+    <section id="reservations" class="reservation-section section-padding">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2>Table Reservation</h2>
+                <div class="separator"></div>
+                <p>Reserve an exquisite dining experience in one of our meticulously designed spaces.</p>
+            </div>
+            
+            <div class="reservation-container">
+                <!-- Zone Selector -->
+                <div class="zone-selector-wrapper fade-up">
+                    <h3>Select Dining Zone</h3>
+                    <div class="zone-grid">
+                        <div class="zone-card active" data-zone="Skyline Balcony">
+                            <div class="zone-img">
+                                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&q=80" alt="Skyline Balcony">
+                            </div>
+                            <div class="zone-info">
+                                <h4>Skyline Balcony</h4>
+                                <p>Panoramic city views, starry skies, & intimate candlelight tables.</p>
+                                <span class="vibe-tag"><i class="fas fa-wand-magic-sparkles"></i> Romantic & Scenic</span>
+                            </div>
+                        </div>
+                        <div class="zone-card" data-zone="Luxury Indoor">
+                            <div class="zone-img">
+                                <img src="https://images.unsplash.com/photo-1544025162-8315ea076231?w=400&q=80" alt="Luxury Indoor">
+                            </div>
+                            <div class="zone-info">
+                                <h4>Luxury Indoor</h4>
+                                <p>Opulent gold accents, soft velvet seating, and refined acoustics.</p>
+                                <span class="vibe-tag"><i class="fas fa-crown"></i> Elegant & Classic</span>
+                            </div>
+                        </div>
+                        <div class="zone-card" data-zone="Garden Pavilion">
+                            <div class="zone-img">
+                                <img src="https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=400&q=80" alt="Garden Pavilion">
+                            </div>
+                            <div class="zone-info">
+                                <h4>Garden Pavilion</h4>
+                                <p>Lush tropical flora, gentle water features, and natural breeze.</p>
+                                <span class="vibe-tag"><i class="fas fa-leaf"></i> Fresh & Serene</span>
+                            </div>
+                        </div>
+                        <div class="zone-card" data-zone="Chef's Counter">
+                            <div class="zone-img">
+                                <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400&q=80" alt="Chef's Counter">
+                            </div>
+                            <div class="zone-info">
+                                <h4>Chef's Counter</h4>
+                                <p>Front-row seats to culinary arts, direct interaction, & tasting menus.</p>
+                                <span class="vibe-tag"><i class="fas fa-fire"></i> Interactive & Exquisite</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reservation Form -->
+                <div class="reservation-form-wrapper fade-up delay-1">
+                    <h3>Reservation Details</h3>
+                    <form id="reservationForm" class="reservation-form">
+                        <input type="hidden" id="selectedZoneInput" value="Skyline Balcony">
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="resName"><i class="fas fa-user"></i> Full Name</label>
+                                <input type="text" id="resName" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="resPhone"><i class="fas fa-phone"></i> Phone Number</label>
+                                <input type="tel" id="resPhone" placeholder="Your Phone Number" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="resDate"><i class="fas fa-calendar-day"></i> Select Date</label>
+                                <input type="date" id="resDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="resTime"><i class="fas fa-clock"></i> Select Time</label>
+                                <select id="resTime" required class="custom-select">
+                                    <option value="" disabled selected>Choose Time Slot</option>
+                                    <option value="12:00 PM">12:00 PM (Lunch)</option>
+                                    <option value="1:30 PM">1:30 PM (Lunch)</option>
+                                    <option value="3:00 PM">3:00 PM (Lunch)</option>
+                                    <option value="6:00 PM">6:00 PM (Dinner)</option>
+                                    <option value="7:30 PM">7:30 PM (Dinner)</option>
+                                    <option value="9:00 PM">9:00 PM (Dinner)</option>
+                                    <option value="10:30 PM">10:30 PM (Dinner)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="resGuests"><i class="fas fa-users"></i> Number of Guests</label>
+                                <div class="guest-selector-container">
+                                    <input type="range" id="resGuests" min="1" max="10" value="2" oninput="guestCountDisplay.innerText = this.value + ' Guests'">
+                                    <span id="guestCountDisplay" class="guest-count-badge">2 Guests</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="resNotes"><i class="fas fa-message"></i> Special Requests / Dietary Needs</label>
+                            <textarea id="resNotes" placeholder="E.g., Birthday celebration, gluten-free dietary requirements, wheelchair access..." rows="3"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-envelope-open-text"></i> Secure My Table</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Testimonial Slider -->
     <section id="testimonials" class="testimonials section-padding">
         <div class="container">
@@ -565,7 +683,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Zentro Fab. All Rights Reserved. <span class="creator-tag">| Created by <span class="creator-link">wathzz</span></span></p>
+            <p>&copy; 2026 Zentro Fab. All Rights Reserved. <span class="creator-tag">| Created by <span class="creator-link">wathzz</span></span> <span class="creator-tag">| <a href="admin.html" id="footerAdminLink" class="footer-admin-link" style="color: rgba(255,255,255,0.25); text-decoration: none; font-size: 0.85rem; margin-left: 5px; transition: color 0.3s; cursor: pointer;"><i class="fas fa-key" style="font-size: 0.75rem; margin-right: 4px; color: var(--accent-gold);"></i>Staff Login</a></span></p>
         </div>
     </footer>
 
@@ -605,6 +723,17 @@
                         </div>
                     </div>
 
+                    <div class="heritage-story-toggle-container">
+                        <button type="button" class="heritage-story-btn" id="heritageStoryBtn">
+                            <i class="fas fa-scroll"></i> Read Chef's Heritage Story
+                        </button>
+                    </div>
+                    
+                    <div class="heritage-story-content d-none" id="heritageStoryContent">
+                        <h4>Spices & Origin Story</h4>
+                        <p id="heritageStoryText">Loading history...</p>
+                    </div>
+
                     <div class="modal-actions">
                         <div class="qty-selector">
                             <button class="qty-btn minus">-</button>
@@ -622,34 +751,213 @@
 
     <!-- Dynamic Cart Sidebar -->
     <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h2>Your Order</h2>
-            <button class="close-cart" id="closeCartBtn"><i class="fas fa-times"></i></button>
+        <!-- Step 1: Cart Items (default visible) -->
+        <div class="cart-step-container active" id="cartStepItems">
+            <div class="cart-header">
+                <h2>Your Order</h2>
+                <button class="close-cart" id="closeCartBtn"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="cart-items" id="cartItemsContainer">
+                <!-- Dynamic cart items injected here by JS -->
+            </div>
+            <div class="cart-footer-details">
+                <div class="order-type-selector">
+                    <span class="selector-label">Dining Preference</span>
+                    <div class="type-options">
+                        <button class="type-option active" id="dineinBtn" type="button">
+                            <i class="fas fa-utensils"></i> Dine-In
+                        </button>
+                        <button class="type-option" id="takeawayBtn" type="button">
+                            <i class="fas fa-bag-shopping"></i> Takeaway
+                        </button>
+                    </div>
+                </div>
+                <div class="cart-total-row">
+                    <span>Subtotal:</span>
+                    <span id="cartSubtotal">$0.00</span>
+                </div>
+                <button class="btn btn-primary btn-block checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+            </div>
         </div>
-        <div class="cart-items" id="cartItemsContainer">
-            <!-- Dynamic cart items injected here by JS -->
+
+        <!-- Step 2: Checkout Form (hidden initially) -->
+        <div class="cart-step-container" id="cartStepCheckout">
+            <div class="cart-header">
+                <h2><button class="back-cart-btn" id="backToCartBtn"><i class="fas fa-arrow-left"></i></button> Checkout</h2>
+                <button class="close-cart" id="closeCartBtn2"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="checkoutForm" class="checkout-form-sidebar">
+                <div class="checkout-scroll-area">
+                    <div class="form-group">
+                        <label for="chkName">Full Name</label>
+                        <input type="text" id="chkName" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="chkPhone">Phone Number</label>
+                        <input type="tel" id="chkPhone" placeholder="Your Phone Number" required>
+                    </div>
+                    <div class="form-group" id="dineinFields">
+                        <label for="chkTable">Table Number</label>
+                        <select id="chkTable" class="custom-select">
+                            <option value="1">Table 1 - Indoor</option>
+                            <option value="2">Table 2 - Indoor</option>
+                            <option value="3">Table 3 - Balcony</option>
+                            <option value="4">Table 4 - Balcony</option>
+                            <option value="5">Table 5 - Garden</option>
+                            <option value="Chef's Counter">Chef's Counter VIP</option>
+                        </select>
+                    </div>
+                    <div class="form-group d-none" id="takeawayFields">
+                        <label for="chkTime">Pickup Time</label>
+                        <select id="chkTime" class="custom-select">
+                            <option value="In 20 Mins">In 20 Mins</option>
+                            <option value="In 40 Mins">In 40 Mins</option>
+                            <option value="In 60 Mins">In 60 Mins</option>
+                            <option value="Specific Time">Choose later...</option>
+                        </select>
+                    </div>
+                    <div class="order-summary-mini">
+                        <h4>Order Details (<span id="chkItemsCount">0</span> dishes)</h4>
+                        <div class="mini-summary-items" id="chkMiniItems"></div>
+                        <div class="mini-summary-total">Total: <span id="chkTotal">$0.00</span></div>
+                    </div>
+                </div>
+                <div class="cart-footer-details">
+                    <button type="submit" class="btn btn-primary btn-block" id="placeOrderFinalBtn">Place Order</button>
+                </div>
+            </form>
         </div>
-        <div class="cart-footer-details">
-            <!-- Order Type Dine-in or Takeaway -->
-            <div class="order-type-selector">
-                <span class="selector-label">Dining Preference</span>
-                <div class="type-options">
-                    <button class="type-option active" id="dineinBtn" type="button">
-                        <i class="fas fa-utensils"></i> Dine-In
-                    </button>
-                    <button class="type-option" id="takeawayBtn" type="button">
-                        <i class="fas fa-bag-shopping"></i> Takeaway
-                    </button>
+
+        <!-- Step 3: Live Order Tracker (hidden initially) -->
+        <div class="cart-step-container" id="cartStepTracker">
+            <div class="cart-header">
+                <h2>Order Tracker</h2>
+                <button class="close-cart" id="closeCartBtn3"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="tracker-body">
+                <div class="tracker-status-box">
+                    <div class="tracker-pulse">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 id="trackerHeading">Order Received</h3>
+                    <p id="trackerSub">Kitchen is confirming your selection...</p>
+                </div>
+
+                <div class="tracker-timeline">
+                    <div class="timeline-step active" id="step1">
+                        <div class="step-bullet"><i class="fas fa-receipt"></i></div>
+                        <div class="step-content">
+                            <h4>Order Placed</h4>
+                            <p id="timePlaced">11:32 AM</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step" id="step2">
+                        <div class="step-bullet"><i class="fas fa-fire-burner"></i></div>
+                        <div class="step-content">
+                            <h4>Chef Preparing</h4>
+                            <p>Artisanal crafting in progress</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step" id="step3">
+                        <div class="step-bullet"><i class="fas fa-clipboard-check"></i></div>
+                        <div class="step-content">
+                            <h4>Plating & Quality Check</h4>
+                            <p>Visual review and embellishment</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step" id="step4">
+                        <div class="step-bullet"><i class="fas fa-bell"></i></div>
+                        <div class="step-content">
+                            <h4>Ready</h4>
+                            <p id="step4Label">Ready to serve</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tracker-footer">
+                    <p class="estim-time">Estimated wait: <span id="trackerEstim">~18 mins</span></p>
+                    <button class="btn btn-secondary btn-block" id="closeTrackerBtn">Dismiss Tracker</button>
                 </div>
             </div>
-            <div class="cart-total-row">
-                <span>Subtotal:</span>
-                <span id="cartSubtotal">$0.00</span>
-            </div>
-            <button class="btn btn-primary btn-block checkout-btn" id="checkoutBtn">Place Order</button>
         </div>
     </div>
     <div class="cart-sidebar-overlay" id="cartOverlay"></div>
+
+    <!-- Floating Audio Player -->
+    <div class="ambient-player-container" id="ambientPlayer">
+        <button class="player-toggle" id="playerToggleBtn" aria-label="Toggle Ambient Music">
+            <i class="fas fa-volume-xmark"></i>
+            <span class="player-label">Sound Ambient</span>
+            <div class="player-wave">
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+        </button>
+    </div>
+
+    <!-- Reservation Ticket Modal -->
+    <div class="modal-overlay" id="ticketModal">
+        <div class="ticket-modal-content">
+            <button class="close-modal" id="closeTicketModal"><i class="fas fa-times"></i></button>
+            <div class="ticket-header">
+                <i class="fas fa-circle-check success-icon"></i>
+                <h2>Reservation Confirmed</h2>
+                <p>Your table is secured at Zentro Fab</p>
+            </div>
+            
+            <div class="ticket-body" id="printTicketArea">
+                <div class="ticket-stub">
+                    <div class="stub-left">
+                        <div class="ticket-brand">
+                            <span class="brand-text">ZENTRO <span>FAB</span></span>
+                        </div>
+                        <div class="ticket-info-grid">
+                            <div class="info-item">
+                                <span class="info-label">GUEST</span>
+                                <span class="info-value" id="ticketGuestName">John Doe</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">DATE</span>
+                                <span class="info-value" id="ticketDate">2026-05-20</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">TIME</span>
+                                <span class="info-value" id="ticketTime">7:30 PM</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">GUESTS</span>
+                                <span class="info-value" id="ticketGuestCount">2 Guests</span>
+                            </div>
+                            <div class="info-item full-width">
+                                <span class="info-label">DINING ZONE</span>
+                                <span class="info-value" id="ticketZone">Skyline Balcony</span>
+                            </div>
+                            <div class="info-item full-width">
+                                <span class="info-label">RESERVATION CODE</span>
+                                <span class="info-value code-value" id="ticketCode">ZF-82710-SL</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stub-right">
+                        <div class="qr-box">
+                            <div class="simulated-qr">
+                                <div class="qr-row"><span></span><span></span><span></span><span></span><span></span></div>
+                                <div class="qr-row"><span></span><span></span><span></span><span></span><span></span></div>
+                                <div class="qr-row"><span></span><span></span><span></span><span></span><span></span></div>
+                                <div class="qr-row"><span></span><span></span><span></span><span></span><span></span></div>
+                                <div class="qr-row"><span></span><span></span><span></span><span></span><span></span></div>
+                            </div>
+                            <span class="qr-text">Scan for Entry</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ticket-actions">
+                <button class="btn btn-secondary" onclick="window.print()"><i class="fas fa-print"></i> Print Ticket</button>
+                <button class="btn btn-primary" id="closeTicketSuccessBtn">Done</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Notification Toast -->
     <div class="toast" id="toast">
