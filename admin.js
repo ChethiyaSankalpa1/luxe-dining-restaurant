@@ -463,13 +463,78 @@ function updateInsightsPanel() {
         sortedDishes.slice(0, 4).forEach((dish, idx) => {
             const medMedal = idx === 0 ? '🏆' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : '✨';
             statPopularList.innerHTML += `
-                <li style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); padding: 10px 15px; border-radius: 4px; font-size: 0.85rem; border: 1px solid var(--glass-border);">
-                    <span style="font-weight: 500; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
-                        <span style="font-size: 1rem;">${medMedal}</span> ${dish.title}
+                <li style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 8px; font-size: 0.9rem; border: 1px solid var(--glass-border);">
+                    <span style="font-weight: 500; color: var(--text-primary); display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 1.2rem;">${medMedal}</span> ${dish.title}
                     </span>
-                    <span style="color: var(--accent-gold); font-family: monospace; font-weight: 600;">${dish.qty} Orders</span>
+                    <span style="color: var(--accent-gold); font-family: monospace; font-weight: 600; background: rgba(212,175,55,0.1); padding: 4px 10px; border-radius: 20px;">${dish.qty} Orders</span>
                 </li>
             `;
+        });
+    }
+
+    // Chart.js Implementation
+    const ctx = document.getElementById('revenueChart');
+    if (ctx) {
+        if (window.myRevenueChart) {
+            window.myRevenueChart.destroy();
+        }
+        
+        // Mock data for the week
+        const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        const data = [1200, 1900, 1500, 2200, 3100, 4200, totalEstimatedRevenue > 4000 ? totalEstimatedRevenue : 3800];
+        
+        window.myRevenueChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Revenue ($)',
+                    data: data,
+                    borderColor: '#d4af37',
+                    backgroundColor: 'rgba(212, 175, 55, 0.1)',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#050505',
+                    pointBorderColor: '#d4af37',
+                    pointBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(18, 18, 18, 0.9)',
+                        titleColor: '#d4af37',
+                        bodyColor: '#f5f5f5',
+                        borderColor: 'rgba(212, 175, 55, 0.3)',
+                        borderWidth: 1,
+                        padding: 10,
+                        displayColors: false,
+                        callbacks: {
+                            label: function(context) {
+                                return '$' + context.parsed.y;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                        ticks: { color: '#a0a0a0', callback: function(value) { return '$' + value; } }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#a0a0a0' }
+                    }
+                }
+            }
         });
     }
 }
