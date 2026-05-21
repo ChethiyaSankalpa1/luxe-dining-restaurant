@@ -3,10 +3,12 @@
 // Preloader
 window.addEventListener('load', () => {
     const preloader = document.getElementById('preloader');
-    preloader.style.opacity = '0';
-    setTimeout(() => {
-        preloader.style.display = 'none';
-    }, 500);
+    if (preloader) {
+        preloader.style.opacity = '0';
+        setTimeout(() => {
+            preloader.style.display = 'none';
+        }, 500);
+    }
 });
 
 // Navbar Scroll Effect
@@ -25,13 +27,17 @@ const closeMenuBtn = document.querySelector('.close-menu');
 const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
 const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
 
-mobileMenuBtn.addEventListener('click', () => {
-    mobileMenuOverlay.classList.add('active');
-});
+if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenuOverlay.classList.add('active');
+    });
+}
 
-closeMenuBtn.addEventListener('click', () => {
-    mobileMenuOverlay.classList.remove('active');
-});
+if (closeMenuBtn) {
+    closeMenuBtn.addEventListener('click', () => {
+        mobileMenuOverlay.classList.remove('active');
+    });
+}
 
 mobileNavLinks.forEach(link => {
     link.addEventListener('click', () => {
@@ -66,132 +72,215 @@ const sliderDotsContainer = document.getElementById('sliderDots');
 let currentSlide = 0;
 const slideCount = slides.length;
 
-// Create dots
-for (let i = 0; i < slideCount; i++) {
-    const dot = document.createElement('div');
-    dot.classList.add('dot');
-    if (i === 0) dot.classList.add('active');
-    dot.dataset.index = i;
-    dot.addEventListener('click', () => goToSlide(i));
-    sliderDotsContainer.appendChild(dot);
+if (sliderContainer && sliderDotsContainer && slideCount > 0) {
+    // Create dots
+    for (let i = 0; i < slideCount; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (i === 0) dot.classList.add('active');
+        dot.dataset.index = i;
+        dot.addEventListener('click', () => goToSlide(i));
+        sliderDotsContainer.appendChild(dot);
+    }
+
+    const dots = document.querySelectorAll('.dot');
+
+    function goToSlide(index) {
+        currentSlide = index;
+        const offset = -currentSlide * 100;
+        sliderContainer.style.transform = `translateX(${offset}%)`;
+        
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[currentSlide].classList.add('active');
+    }
+
+    // Auto slide
+    setInterval(() => {
+        let nextSlide = (currentSlide + 1) % slideCount;
+        goToSlide(nextSlide);
+    }, 5000);
 }
 
-const dots = document.querySelectorAll('.dot');
-
-function goToSlide(index) {
-    currentSlide = index;
-    const offset = -currentSlide * 100;
-    sliderContainer.style.transform = `translateX(${offset}%)`;
-    
-    dots.forEach(dot => dot.classList.remove('active'));
-    dots[currentSlide].classList.add('active');
-}
-
-// Auto slide
-setInterval(() => {
-    let nextSlide = (currentSlide + 1) % slideCount;
-    goToSlide(nextSlide);
-}, 5000);
-
-// Comprehensive Product Data for 15 Items (8 Sri Lankan, 4 International, 3 Desserts)
+// Comprehensive Product Data in Sri Lankan Rupees (LKR)
 const productsData = {
     1: {
-        title: "Wagyu Beef Tenderloin",
-        price: 120.00,
-        img: "https://images.unsplash.com/photo-1544025162-8315ea076231?w=800&q=80",
-        desc: "A5 Japanese Wagyu seared to perfection, served with a red wine reduction, potato purée, and roasted asparagus."
+        title: "Chicken Lamprais",
+        price: 1200.00,
+        img: "https://images.unsplash.com/photo-1608897013039-887f21d8c804?w=800&q=80",
+        desc: "Traditional rice cooked in meat stock, accompanied by chicken curry, frikkadels (meatballs), blachan, and aubergine pahi, slow-baked in a banana leaf.",
+        category: "srilankan",
+        isPopular: true
     },
     2: {
         title: "Ceylon Mud Crab Curry",
-        price: 95.00,
+        price: 9500.00,
         img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&q=80",
-        desc: "Handpicked wild Ceylon mud crab simmered in a dense, richly spiced, toasted local curry blend and fresh coconut cream."
+        desc: "Wild fresh mud crab simmered in a dense, richly spiced, toasted local curry blend and creamy coconut extract.",
+        category: "srilankan",
+        isPopular: false
     },
     3: {
-        title: "Butter Poached Lobster",
-        price: 95.00,
-        img: "https://images.unsplash.com/photo-1559737712-4217316a7f0f?w=800&q=80",
-        desc: "Fresh caught Maine lobster tail, slow-poached in herb butter, accompanied by saffron risotto and lemon foam."
+        title: "Chicken Roll",
+        price: 210.00,
+        img: "https://images.unsplash.com/photo-1601050690597-df056fb4ce78?w=800&q=80",
+        desc: "Classic Sri Lankan style roll. Crispy breaded pastry stuffed with savory spiced chicken and potato filling.",
+        category: "savouries",
+        isPopular: true
     },
     4: {
-        title: "Royal Ceylon Lamprais",
-        price: 55.00,
-        img: "https://images.unsplash.com/photo-1608897013039-887f21d8c804?w=800&q=80",
-        desc: "Steamed rice cooked in spiced mutton stock, served with frikkadels, caramelized onion sambol, aubergine pahi, and mixed meat, slow-baked in a banana leaf."
+        title: "Coriander & Fish Pastry",
+        price: 210.00,
+        img: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=800&q=80",
+        desc: "Buttery, flaky golden puff pastry puff filled with seasoned minced fish and garden fresh coriander leaves.",
+        category: "savouries",
+        isPopular: false
     },
     5: {
-        title: "Truffle Mushroom Risotto",
-        price: 65.00,
-        img: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=800&q=80",
-        desc: "Creamy arborio rice with wild forest mushrooms, finished with aged Parmigiano-Reggiano and freshly shaved black truffle."
+        title: "Crispy Chicken Quiche",
+        price: 200.00,
+        img: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=800&q=80",
+        desc: "Baked open-face pastry crust filled with savory custard, minced chicken breast, herbs, and melted gouda cheese.",
+        category: "savouries",
+        isPopular: false
     },
     6: {
-        title: "Traditional Hopper Feast",
-        price: 35.00,
-        img: "https://images.unsplash.com/photo-1506084868230-bb9d95c24759?w=800&q=80",
-        desc: "Light, crispy-edged rice crepes baked with free-range eggs. Served alongside premium Seeni Sambol and aromatic coconut Lunu Miris."
+        title: "Chocolate Fudge Cake",
+        price: 2100.00,
+        img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&q=80",
+        desc: "Rich, moist dark chocolate cake layered with luscious fudge frosting. Superb texture and rich flavor.",
+        category: "cakes",
+        isPopular: true,
+        sizes: {
+            "500g": 2100.00,
+            "1kg": 4100.00,
+            "2kg": 8050.00
+        }
     },
     7: {
-        title: "Pan-Seared Scallops",
-        price: 75.00,
-        img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=800&q=80",
-        desc: "Jumbo Hokkaido scallops seared to a golden brown, served over a bed of cauliflower silk and pancetta crisp."
+        title: "Coffee & Chocolate Fudge Cake",
+        price: 2250.00,
+        img: "https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?w=800&q=80",
+        desc: "A rich layers of chocolate fudge paired with aromatic Ceylon coffee-infused sponge cake.",
+        category: "cakes",
+        isPopular: false,
+        sizes: {
+            "500g": 2250.00,
+            "1kg": 4350.00,
+            "2kg": 8500.00
+        }
     },
     8: {
-        title: "Gourmet Kottu Supreme",
-        price: 40.00,
-        img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=800&q=80",
-        desc: "A Sri Lankan classic elevated. Finely shredded flaky flatbread wok-tossed with farm-fresh organic eggs, fresh green vegetables, tender curry chicken, and lemongrass."
+        title: "Love Cake",
+        price: 2050.00,
+        img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80",
+        desc: "Traditional Sri Lankan festive cake made with semolina, honey, cashews, pumpkin preserve, and spiced with nutmeg and cardamom. (400g)",
+        category: "cakes",
+        isPopular: true
     },
     9: {
-        title: "Cinnamon Glazed Duck",
-        price: 65.00,
-        img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80",
-        desc: "Pan-seared spiced duck breast coated in organic ground Ceylon cinnamon and caramelized wild honey glaze."
+        title: "Butter Cake",
+        price: 1350.00,
+        img: "https://images.unsplash.com/photo-1518047601542-79f18c655718?w=800&q=80",
+        desc: "Classic Sri Lankan style buttery vanilla pound cake. Simple, moist, and delicious.",
+        category: "cakes",
+        isPopular: false,
+        sizes: {
+            "500g": 1350.00,
+            "1kg": 2600.00
+        }
     },
     10: {
-        title: "Berkshire Black Pork Curry",
-        price: 45.00,
-        img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80",
-        desc: "Tender cubes of Berkshire pork belly simmered in dark, heavy-roasted island spices, cardamom, and thick curry broth. Served with toasted rice flour roti."
+        title: "Traditional Hopper Feast",
+        price: 1500.00,
+        img: "https://images.unsplash.com/photo-1506084868230-bb9d95c24759?w=800&q=80",
+        desc: "Light, crispy-edged rice crepes baked with free-range eggs. Served with Seeni Sambol and Lunu Miris.",
+        category: "srilankan",
+        isPopular: false
     },
     11: {
-        title: "Jaffna Spiced Prawn Thermidor",
-        price: 70.00,
-        img: "https://images.unsplash.com/photo-1559737712-4217316a7f0f?w=800&q=80",
-        desc: "Luxe jumbo prawns baked inside shell, stuffed with a decadent cream of Jaffna roasted spice powder, local coconut arrack reduction, and gruyère."
+        title: "Gourmet Kottu Supreme",
+        price: 1800.00,
+        img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=800&q=80",
+        desc: "Elevated shredded flatbread wok-tossed with farm eggs, fresh vegetables, chicken curry, and fresh herbs.",
+        category: "srilankan",
+        isPopular: true
     },
     12: {
-        title: "Devilled Beef Tenderloin",
-        price: 50.00,
-        img: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=800&q=80",
-        desc: "Sizzling slices of premium beef tenderloin flash-fried with fresh capsicums, red banana peppers, red onions, and sweet-sour local tomato glaze."
+        title: "Berkshire Black Pork Curry",
+        price: 2200.00,
+        img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80",
+        desc: "Tender pork belly cubes simmered in heavy-roasted spices, local organic coconut vinegar, and curry leaf broth.",
+        category: "srilankan",
+        isPopular: false
     },
     13: {
         title: "Modern Ceylon Watalappan",
-        price: 25.00,
+        price: 850.00,
         img: "https://images.unsplash.com/photo-1579372786545-d24232daf58c?w=800&q=80",
-        desc: "Rich spiced coconut custard made with organic palm jaggery, nutmeg, and cardamom, garnished with roasted cashews."
+        desc: "Rich, spiced coconut custard made with organic palm jaggery, nutmeg, and cardamom, topped with cashews.",
+        category: "dessert",
+        isPopular: true
     },
     14: {
         title: "Golden Saffron Mousse",
-        price: 28.00,
+        price: 950.00,
         img: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=800&q=80",
-        desc: "Light and airy organic saffron mousse topped with rosewater droplets, micro greens, and premium crushed pistachios."
+        desc: "Light saffron mousse topped with rosewater droplets, micro greens, and premium crushed pistachios.",
+        category: "dessert",
+        isPopular: false
     },
     15: {
         title: "Gold Leaf Chocolate Fondant",
-        price: 30.00,
+        price: 1200.00,
         img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&q=80",
-        desc: "A melting liquid chocolate cake using pure 70% dark cocoa, decorated with edible 24k gold leaf and paired with vanilla gelato."
+        desc: "Melting liquid center chocolate cake using 70% dark cocoa, decorated with edible gold leaf and vanilla gelato.",
+        category: "dessert",
+        isPopular: false
+    },
+    16: {
+        title: "Jaffna Spiced Prawn Thermidor",
+        price: 3500.00,
+        img: "https://images.unsplash.com/photo-1559737712-4217316a7f0f?w=800&q=80",
+        desc: "Jumbo ocean prawns baked in-shell, filled with a creamy mix of Jaffna curry spices, coconut arrack, and gruyère cheese.",
+        category: "srilankan",
+        isPopular: false
     }
 };
 
-// State: Order Cart
+// Application State
 let cart = [];
-let diningPreference = "dinein"; // Default dining preference
+let diningPreference = "dinein"; 
+let searchQuery = "";
+let activeCategory = "all";
+let currentUser = null;
 
-// DOM Elements for Cart Sidebar & Dining Preferences
+// Load user session from localStorage
+try {
+    const cachedUser = localStorage.getItem('zentro_logged_in_user');
+    if (cachedUser) {
+        currentUser = JSON.parse(cachedUser);
+    }
+} catch (e) {
+    console.error("Error reading login state from localStorage", e);
+}
+
+// DOM Elements
+const productGridContainer = document.getElementById('productGridContainer');
+const searchPanel = document.getElementById('searchPanel');
+const searchInput = document.getElementById('searchInput');
+const openSearchBtn = document.getElementById('openSearchBtn');
+const closeSearchBtn = document.getElementById('closeSearchBtn');
+
+const authModal = document.getElementById('authModal');
+const openAuthBtn = document.getElementById('openAuthBtn');
+const closeAuthModal = document.getElementById('closeAuthModal');
+const tabLogin = document.getElementById('tabLogin');
+const tabRegister = document.getElementById('tabRegister');
+const loginForm = document.getElementById('loginForm');
+const registerForm = document.getElementById('registerForm');
+const switchToRegister = document.getElementById('switchToRegister');
+const switchToLogin = document.getElementById('switchToLogin');
+
 const cartSidebar = document.getElementById('cartSidebar');
 const cartOverlay = document.getElementById('cartOverlay');
 const openCartBtn = document.getElementById('openCartBtn');
@@ -203,10 +292,8 @@ const toast = document.getElementById('toast');
 const dineinBtn = document.getElementById('dineinBtn');
 const takeawayBtn = document.getElementById('takeawayBtn');
 
-// Modal Logic
 const modalOverlay = document.getElementById('productModal');
 const closeModal = document.getElementById('closeModal');
-const viewBtns = document.querySelectorAll('.view-btn');
 const modalImg = document.getElementById('modalImg');
 const modalTitle = document.getElementById('modalTitle');
 const modalPrice = document.getElementById('modalPrice');
@@ -214,85 +301,315 @@ const modalDesc = document.getElementById('modalDesc');
 const modalTotal = document.getElementById('modalTotal');
 const addonSelect = document.getElementById('addonSelect');
 const qtyInput = document.getElementById('qtyInput');
+const modalSizeGroup = document.getElementById('modalSizeGroup');
+const sizeSelectorGroup = document.getElementById('sizeSelectorGroup');
 
 let currentProductPrice = 0;
 let currentProductId = null;
+let currentProductSize = null;
 
-// Menu Filters Implementation
+// Helper to Format Currency (Rs. X,XXX.XX)
+function formatPrice(num) {
+    return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+// Render Products Grid
+function renderProducts() {
+    if (!productGridContainer) return;
+    
+    productGridContainer.innerHTML = '';
+    
+    const filtered = Object.entries(productsData).filter(([id, product]) => {
+        const matchesCategory = activeCategory === 'all' || 
+            (activeCategory === 'popular' && product.isPopular) || 
+            (product.category === activeCategory);
+            
+        const matchesSearch = searchQuery === '' || 
+            product.title.toLowerCase().includes(searchQuery) || 
+            product.desc.toLowerCase().includes(searchQuery);
+            
+        return matchesCategory && matchesSearch;
+    });
+    
+    if (filtered.length === 0) {
+        productGridContainer.innerHTML = `
+            <div class="search-empty-state">
+                <i class="fas fa-search-minus"></i>
+                <h3>No items found</h3>
+                <p>We couldn't find anything matching "${searchQuery}". Try searching for something else.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    filtered.forEach(([id, product]) => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.dataset.category = product.category;
+        
+        card.innerHTML = `
+            <div class="card-img-wrapper">
+                <img src="${product.img}" alt="${product.title}">
+                <div class="hover-overlay">
+                    <button class="view-btn" data-id="${id}">Quick View</button>
+                </div>
+            </div>
+            <div class="card-info">
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3>${product.title}</h3>
+                <p class="desc">${product.desc}</p>
+                <div class="card-footer">
+                    <span class="price">Rs. ${formatPrice(product.price)}</span>
+                    <button class="add-to-cart" data-id="${id}" aria-label="Add to cart">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+        productGridContainer.appendChild(card);
+    });
+    
+    // Bind Action Triggers
+    setupQuickAddTriggers();
+    setupModalTriggers();
+}
+
+// Category Filtering Navigation
 const filterBtns = document.querySelectorAll('.filter-btn');
-const productCards = document.querySelectorAll('.product-card');
-
 filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-        // Toggle active button
         filterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         
-        const filterValue = btn.dataset.filter;
-        
-        productCards.forEach(card => {
-            const category = card.dataset.category;
-            if (filterValue === 'all' || category === filterValue) {
-                card.style.display = 'flex';
-                // Trigger reflow for animation
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 10);
-            } else {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    card.style.display = 'none';
-                }, 300);
-            }
-        });
+        activeCategory = btn.dataset.filter;
+        renderProducts();
     });
 });
 
-// Dining Preference Option Selection
-dineinBtn.addEventListener('click', () => {
-    diningPreference = "dinein";
-    dineinBtn.classList.add('active');
-    takeawayBtn.classList.remove('active');
-    showToast("Selected Dining Preference: Dine-In");
+// Search Overlay Actions
+if (openSearchBtn) {
+    openSearchBtn.addEventListener('click', () => {
+        searchPanel.classList.toggle('active');
+        if (searchPanel.classList.contains('active')) {
+            searchInput.focus();
+        }
+    });
+}
+
+if (closeSearchBtn) {
+    closeSearchBtn.addEventListener('click', () => {
+        searchPanel.classList.remove('active');
+    });
+}
+
+// Close search bar when clicking outside it
+document.addEventListener('click', (e) => {
+    if (searchPanel && openSearchBtn && !searchPanel.contains(e.target) && !openSearchBtn.contains(e.target)) {
+        searchPanel.classList.remove('active');
+    }
 });
 
-takeawayBtn.addEventListener('click', () => {
-    diningPreference = "takeaway";
-    takeawayBtn.classList.add('active');
-    dineinBtn.classList.remove('active');
-    showToast("Selected Dining Preference: Takeaway");
-});
+if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value.trim().toLowerCase();
+        renderProducts();
+    });
+}
 
-// Open Cart
+// User Profile / Authentication Modal
+function updateAuthUI() {
+    if (!openAuthBtn) return;
+    if (currentUser) {
+        const firstName = currentUser.name.split(' ')[0];
+        openAuthBtn.innerHTML = `<span class="user-greeting">Hi, ${firstName}</span>`;
+    } else {
+        openAuthBtn.innerHTML = `<i class="fas fa-user"></i>`;
+    }
+}
+
+if (openAuthBtn) {
+    openAuthBtn.addEventListener('click', () => {
+        if (currentUser) {
+            if (confirm(`Logged in as ${currentUser.name}.\n\nWould you like to Log Out?`)) {
+                currentUser = null;
+                localStorage.removeItem('zentro_logged_in_user');
+                updateAuthUI();
+                showToast("Logged out successfully.");
+            }
+        } else {
+            authModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    });
+}
+
+if (closeAuthModal) {
+    closeAuthModal.addEventListener('click', () => {
+        authModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+}
+
+if (authModal) {
+    authModal.addEventListener('click', (e) => {
+        if (e.target === authModal) {
+            authModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
+}
+
+// Auth modal tabs logic
+function showLoginTab() {
+    tabLogin.classList.add('active');
+    tabRegister.classList.remove('active');
+    loginForm.classList.add('active');
+    registerForm.classList.remove('active');
+}
+
+function showRegisterTab() {
+    tabRegister.classList.add('active');
+    tabLogin.classList.remove('active');
+    registerForm.classList.add('active');
+    loginForm.classList.remove('active');
+}
+
+if (tabLogin) tabLogin.addEventListener('click', showLoginTab);
+if (tabRegister) tabRegister.addEventListener('click', showRegisterTab);
+if (switchToRegister) switchToRegister.addEventListener('click', showRegisterTab);
+if (switchToLogin) switchToLogin.addEventListener('click', showLoginTab);
+
+// Form submissions
+if (registerForm) {
+    registerForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('regName').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const phone = document.getElementById('regPhone').value.trim();
+        const address = document.getElementById('regAddress').value.trim();
+        const password = document.getElementById('regPassword').value;
+        
+        let users = [];
+        try {
+            const stored = localStorage.getItem('zentro_users');
+            if (stored) users = JSON.parse(stored);
+        } catch (err) {
+            console.error(err);
+        }
+        
+        if (users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+            showToast("This email is already registered. Please login.");
+            showLoginTab();
+            return;
+        }
+        
+        const newUser = { name, email, phone, address, password };
+        users.push(newUser);
+        
+        try {
+            localStorage.setItem('zentro_users', JSON.stringify(users));
+            localStorage.setItem('zentro_logged_in_user', JSON.stringify(newUser));
+        } catch (err) {
+            console.error(err);
+        }
+        
+        currentUser = newUser;
+        updateAuthUI();
+        registerForm.reset();
+        authModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        showToast(`Welcome, ${name}! Account registered successfully.`);
+    });
+}
+
+if (loginForm) {
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        
+        let users = [];
+        try {
+            const stored = localStorage.getItem('zentro_users');
+            if (stored) users = JSON.parse(stored);
+        } catch (err) {
+            console.error(err);
+        }
+        
+        const matched = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
+        if (matched) {
+            currentUser = matched;
+            try {
+                localStorage.setItem('zentro_logged_in_user', JSON.stringify(matched));
+            } catch (err) {
+                console.error(err);
+            }
+            updateAuthUI();
+            loginForm.reset();
+            authModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            showToast(`Welcome back, ${matched.name}!`);
+        } else {
+            showToast("Invalid credentials. Please register or retry.");
+        }
+    });
+}
+
+// Dining Preference Selectors
+if (dineinBtn) {
+    dineinBtn.addEventListener('click', () => {
+        diningPreference = "dinein";
+        dineinBtn.classList.add('active');
+        takeawayBtn.classList.remove('active');
+        showToast("Selected Dining Preference: Dine-In");
+    });
+}
+
+if (takeawayBtn) {
+    takeawayBtn.addEventListener('click', () => {
+        diningPreference = "takeaway";
+        takeawayBtn.classList.add('active');
+        dineinBtn.classList.remove('active');
+        showToast("Selected Dining Preference: Takeaway");
+    });
+}
+
+// Cart Sidebar Actions
 function openCart() {
     cartSidebar.classList.add('active');
     cartOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
 
-// Close Cart
 function closeCart() {
     cartSidebar.classList.remove('active');
     cartOverlay.classList.remove('active');
     document.body.style.overflow = 'auto';
 }
 
-openCartBtn.addEventListener('click', openCart);
-closeCartBtn.addEventListener('click', closeCart);
-cartOverlay.addEventListener('click', closeCart);
+if (openCartBtn) openCartBtn.addEventListener('click', openCart);
+if (closeCartBtn) closeCartBtn.addEventListener('click', closeCart);
+if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
 
-// Show Toast Alert
+// Show Toast Alerts
 function showToast(msg) {
     const toastMsg = document.getElementById('toastMsg');
-    toastMsg.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => {
-        toast.classList.remove('show');
-    }, 3000);
+    if (toastMsg && toast) {
+        toastMsg.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
 }
 
+<<<<<<< HEAD
 // Ingredient Heritage Stories database
 const heritageStories = {
     1: "Zentro Fab's Wagyu is glazed with a reduction infused with organic Ceylon Cardamom sourced from the foothills of Knuckles Range, blending rich Japanese marbled fat with delicate highland citrus-spice notes.",
@@ -313,25 +630,53 @@ const heritageStories = {
 };
 
 // Modal View Handler
+=======
+// Modal View Handler (Quick View)
+>>>>>>> 8626172 (Update .gitignore to exclude node_modules and prepare deployment)
 function setupModalTriggers() {
-    const viewBtns = document.querySelectorAll('.view-btn');
-    viewBtns.forEach(btn => {
-        const newBtn = btn.cloneNode(true);
-        btn.parentNode.replaceChild(newBtn, btn);
-        
-        newBtn.addEventListener('click', (e) => {
+    document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
             const id = e.target.dataset.id;
             const product = productsData[id];
             currentProductId = id;
+            currentProductSize = null;
             
-            if(product) {
+            if (product) {
                 modalImg.src = product.img;
                 modalTitle.textContent = product.title;
-                modalPrice.textContent = `$${product.price.toFixed(2)}`;
                 modalDesc.textContent = product.desc;
-                currentProductPrice = product.price;
                 
-                // Reset options
+                // Populating Sizing Buttons if present
+                if (product.sizes) {
+                    modalSizeGroup.style.display = 'block';
+                    sizeSelectorGroup.innerHTML = '';
+                    
+                    const sizes = Object.keys(product.sizes);
+                    currentProductSize = sizes[0]; // Set default size to first
+                    currentProductPrice = product.sizes[currentProductSize];
+                    
+                    sizes.forEach((size, idx) => {
+                        const sizeBtn = document.createElement('button');
+                        sizeBtn.className = `size-btn ${idx === 0 ? 'active' : ''}`;
+                        sizeBtn.textContent = size;
+                        sizeBtn.type = 'button';
+                        sizeBtn.addEventListener('click', () => {
+                            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+                            sizeBtn.classList.add('active');
+                            currentProductSize = size;
+                            currentProductPrice = product.sizes[size];
+                            updateModalTotal();
+                        });
+                        sizeSelectorGroup.appendChild(sizeBtn);
+                    });
+                } else {
+                    modalSizeGroup.style.display = 'none';
+                    currentProductPrice = product.price;
+                }
+                
+                modalPrice.textContent = `Rs. ${formatPrice(currentProductPrice)}`;
+                
+                // Reset select controls & defaults
                 addonSelect.value = "0";
                 qtyInput.value = "1";
                 updateModalTotal();
@@ -347,13 +692,13 @@ function setupModalTriggers() {
                 }
                 
                 modalOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Prevent scrolling
+                document.body.style.overflow = 'hidden'; 
             }
         });
     });
 }
-setupModalTriggers();
 
+<<<<<<< HEAD
 // Bind Heritage Story button toggler
 const heritageStoryBtn = document.getElementById('heritageStoryBtn');
 const heritageStoryContent = document.getElementById('heritageStoryContent');
@@ -370,77 +715,107 @@ closeModal.addEventListener('click', () => {
 
 modalOverlay.addEventListener('click', (e) => {
     if(e.target === modalOverlay) {
+=======
+if (closeModal) {
+    closeModal.addEventListener('click', () => {
+>>>>>>> 8626172 (Update .gitignore to exclude node_modules and prepare deployment)
         modalOverlay.classList.remove('active');
         document.body.style.overflow = 'auto';
-    }
-});
+    });
+}
 
-// Calculate Modal Total
+if (modalOverlay) {
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
+}
+
+// Calculate Modal Total Price
 function updateModalTotal() {
+    if (!modalTotal) return;
     const addonPrice = parseFloat(addonSelect.value);
     const qty = parseInt(qtyInput.value);
     const total = (currentProductPrice + addonPrice) * qty;
-    modalTotal.textContent = `$${total.toFixed(2)}`;
+    modalTotal.textContent = `Rs. ${formatPrice(total)}`;
 }
 
-addonSelect.addEventListener('change', updateModalTotal);
-qtyInput.addEventListener('change', () => {
-    if(qtyInput.value < 1) qtyInput.value = 1;
-    updateModalTotal();
-});
-
-document.querySelector('.qty-btn.minus').addEventListener('click', () => {
-    if(qtyInput.value > 1) {
-        qtyInput.value = parseInt(qtyInput.value) - 1;
+if (addonSelect) addonSelect.addEventListener('change', updateModalTotal);
+if (qtyInput) {
+    qtyInput.addEventListener('change', () => {
+        if (qtyInput.value < 1) qtyInput.value = 1;
         updateModalTotal();
-    }
-});
+    });
+}
 
-document.querySelector('.qty-btn.plus').addEventListener('click', () => {
-    qtyInput.value = parseInt(qtyInput.value) + 1;
-    updateModalTotal();
-});
+const minusBtn = document.querySelector('.qty-btn.minus');
+if (minusBtn) {
+    minusBtn.addEventListener('click', () => {
+        if (qtyInput.value > 1) {
+            qtyInput.value = parseInt(qtyInput.value) - 1;
+            updateModalTotal();
+        }
+    });
+}
 
-// Update Cart Count and Subtotal UI
+const plusBtn = document.querySelector('.qty-btn.plus');
+if (plusBtn) {
+    plusBtn.addEventListener('click', () => {
+        qtyInput.value = parseInt(qtyInput.value) + 1;
+        updateModalTotal();
+    });
+}
+
+// Render and Update Order Cart UI
 function updateCartUI() {
-    // Subtotal calculation
     let total = 0;
     let count = 0;
     cartItemsContainer.innerHTML = '';
 
     if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<div style="text-align: center; color: var(--text-secondary); margin-top: 40px;"><i class="fas fa-receipt" style="font-size: 3rem; margin-bottom: 15px; color: var(--border-color);"></i><p>Your order is empty.</p></div>';
+        cartItemsContainer.innerHTML = `
+            <div style="text-align: center; color: var(--text-secondary); margin-top: 40px;">
+                <i class="fas fa-receipt" style="font-size: 3rem; margin-bottom: 15px; color: var(--border-color);"></i>
+                <p>Your order is empty.</p>
+            </div>
+        `;
     } else {
         cart.forEach((item, index) => {
             const itemCost = (item.price + item.addonPrice) * item.qty;
             total += itemCost;
             count += item.qty;
+            
+            const displayTitle = item.size ? `${item.title} (${item.size})` : item.title;
 
             const cartItemHTML = `
                 <div class="cart-item">
                     <img src="${item.img}" alt="${item.title}">
                     <div class="cart-item-info">
-                        <h4>${item.title}</h4>
+                        <h4>${displayTitle}</h4>
                         ${item.addonName !== "Standard Preparation" ? `<span class="cart-item-enhancement">+ ${item.addonName}</span>` : ''}
-                        <div class="cart-item-price">$${(item.price + item.addonPrice).toFixed(2)}</div>
+                        <div class="cart-item-price">Rs. ${formatPrice(item.price + item.addonPrice)}</div>
                         <div class="cart-item-qty-control">
                             <button onclick="changeQty(${index}, -1)"><i class="fas fa-minus"></i></button>
                             <span>${item.qty}</span>
                             <button onclick="changeQty(${index}, 1)"><i class="fas fa-plus"></i></button>
                         </div>
                     </div>
-                    <button class="remove-cart-item" onclick="removeFromCart(${index})" aria-label="Remove item"><i class="fas fa-trash-can"></i></button>
+                    <button class="remove-cart-item" onclick="removeFromCart(${index})" aria-label="Remove item">
+                        <i class="fas fa-trash-can"></i>
+                    </button>
                 </div>
             `;
             cartItemsContainer.innerHTML += cartItemHTML;
         });
     }
 
-    cartSubtotal.textContent = `$${total.toFixed(2)}`;
+    cartSubtotal.textContent = `Rs. ${formatPrice(total)}`;
     cartCountElement.textContent = count;
 }
 
-// Global functions for cart management (accessible from onclick attributes)
+// Global functions for cart modifications
 window.changeQty = function(index, amount) {
     cart[index].qty += amount;
     if (cart[index].qty < 1) {
@@ -450,25 +825,37 @@ window.changeQty = function(index, amount) {
 };
 
 window.removeFromCart = function(index) {
+    const item = cart[index];
+    const itemLabel = item.size ? `${item.title} (${item.size})` : item.title;
     cart.splice(index, 1);
     updateCartUI();
-    showToast("Dish removed from your order.");
+    showToast(`Removed ${itemLabel} from your order.`);
 };
 
-// Add to Cart Logic (Quick Add from main menu)
+// Main Menu Quick Add
 function setupQuickAddTriggers() {
     document.querySelectorAll('.add-to-cart').forEach(btn => {
-        const newBtn = btn.cloneNode(true);
-        btn.parentNode.replaceChild(newBtn, btn);
-        
-        newBtn.addEventListener('click', (e) => {
+        btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const id = newBtn.dataset.id;
+            const id = btn.dataset.id;
             const product = productsData[id];
             
             if (product) {
-                // Check if standard dish is already in cart
-                const existingIndex = cart.findIndex(item => item.id === id && item.addonName === "Standard Preparation");
+                let sizeName = null;
+                let price = product.price;
+                
+                if (product.sizes) {
+                    const sizes = Object.keys(product.sizes);
+                    sizeName = sizes[0]; // Choose first size by default
+                    price = product.sizes[sizeName];
+                }
+                
+                // Match exact product, standard preparation and size
+                const existingIndex = cart.findIndex(item => 
+                    item.id === id && 
+                    item.addonName === "Standard Preparation" && 
+                    item.size === sizeName
+                );
                 
                 if (existingIndex > -1) {
                     cart[existingIndex].qty += 1;
@@ -476,73 +863,86 @@ function setupQuickAddTriggers() {
                     cart.push({
                         id: id,
                         title: product.title,
-                        price: product.price,
+                        price: price,
                         img: product.img,
                         qty: 1,
                         addonName: "Standard Preparation",
-                        addonPrice: 0
+                        addonPrice: 0,
+                        size: sizeName
                     });
                 }
                 
                 updateCartUI();
                 
-                // Add pulse animation to cart button
+                // Visual Pulse Indicator
                 const cartIcon = document.querySelector('.cart-btn i');
-                cartIcon.style.transform = 'scale(1.3)';
-                setTimeout(() => {
-                    cartIcon.style.transform = 'scale(1)';
-                }, 200);
+                if (cartIcon) {
+                    cartIcon.style.transform = 'scale(1.3)';
+                    setTimeout(() => {
+                        cartIcon.style.transform = 'scale(1)';
+                    }, 200);
+                }
                 
-                showToast(`Added 1 ${product.title} to your order.`);
+                const itemLabel = sizeName ? `${product.title} (${sizeName})` : product.title;
+                showToast(`Added 1 ${itemLabel} to your order.`);
             }
         });
     });
 }
-setupQuickAddTriggers();
 
-// Add to Cart Logic (From Modal Popup)
-document.querySelector('.add-to-cart-modal').addEventListener('click', () => {
-    const product = productsData[currentProductId];
-    const qty = parseInt(qtyInput.value);
-    const addonText = addonSelect.options[addonSelect.selectedIndex].text;
-    const addonVal = parseFloat(addonSelect.value);
-    
-    // Extract clean name e.g., "Add Shaved Black Truffle (+$25.00)" -> "Add Shaved Black Truffle"
-    const addonName = addonSelect.value === "0" ? "Standard Preparation" : addonText.split(' (+')[0];
-    
-    if (product) {
-        // Match both product id and exact enhancement
-        const existingIndex = cart.findIndex(item => item.id === currentProductId && item.addonName === addonName);
+// Modal Detail Window Add to Cart
+const addToCartModalBtn = document.querySelector('.add-to-cart-modal');
+if (addToCartModalBtn) {
+    addToCartModalBtn.addEventListener('click', () => {
+        const product = productsData[currentProductId];
+        const qty = parseInt(qtyInput.value);
+        const addonText = addonSelect.options[addonSelect.selectedIndex].text;
+        const addonVal = parseFloat(addonSelect.value);
         
-        if (existingIndex > -1) {
-            cart[existingIndex].qty += qty;
-        } else {
-            cart.push({
-                id: currentProductId,
-                title: product.title,
-                price: product.price,
-                img: product.img,
-                qty: qty,
-                addonName: addonName,
-                addonPrice: addonVal
-            });
+        // Extract clean name, e.g., "Add Shaved Black Truffle (+Rs. 2,500.00)" -> "Add Shaved Black Truffle"
+        const addonName = addonSelect.value === "0" ? "Standard Preparation" : addonText.split(' (+')[0];
+        
+        if (product) {
+            const existingIndex = cart.findIndex(item => 
+                item.id === currentProductId && 
+                item.addonName === addonName &&
+                item.size === currentProductSize
+            );
+            
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += qty;
+            } else {
+                cart.push({
+                    id: currentProductId,
+                    title: product.title,
+                    price: currentProductPrice,
+                    img: product.img,
+                    qty: qty,
+                    addonName: addonName,
+                    addonPrice: addonVal,
+                    size: currentProductSize
+                });
+            }
+            
+            updateCartUI();
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            const cartIcon = document.querySelector('.cart-btn i');
+            if (cartIcon) {
+                cartIcon.style.transform = 'scale(1.3)';
+                setTimeout(() => {
+                    cartIcon.style.transform = 'scale(1)';
+                }, 200);
+            }
+            
+            const itemLabel = currentProductSize ? `${product.title} (${currentProductSize})` : product.title;
+            showToast(`Added ${qty} ${itemLabel} to your order.`);
         }
-        
-        updateCartUI();
-        modalOverlay.classList.remove('active');
-        document.body.style.overflow = 'auto';
-        
-        // Add pulse animation to cart button
-        const cartIcon = document.querySelector('.cart-btn i');
-        cartIcon.style.transform = 'scale(1.3)';
-        setTimeout(() => {
-            cartIcon.style.transform = 'scale(1)';
-        }, 200);
-        
-        showToast(`Added ${qty} ${product.title} to your order.`);
-    }
-});
+    });
+}
 
+<<<<<<< HEAD
 // --- AUDIO CONTROLLER & SOUND FX ---
 const ambientMusic = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3');
 ambientMusic.loop = true;
@@ -735,10 +1135,14 @@ function showCartStep(stepId) {
 }
 
 // Step 1: Click "Proceed to Checkout"
+=======
+// Checkout Form Submission
+>>>>>>> 8626172 (Update .gitignore to exclude node_modules and prepare deployment)
 const checkoutBtn = document.getElementById('checkoutBtn');
 if (checkoutBtn) {
     checkoutBtn.addEventListener('click', () => {
         if (cart.length > 0) {
+<<<<<<< HEAD
             showCartStep(2);
             
             // Populate Checkout Summary
@@ -777,11 +1181,27 @@ if (checkoutBtn) {
                 if (dineinFields) dineinFields.classList.add('d-none');
                 if (takeawayFields) takeawayFields.classList.remove('d-none');
             }
+=======
+            const preferenceText = diningPreference === "dinein" ? "Dine-In" : "Takeaway";
+            let msg = "";
+            
+            if (currentUser) {
+                msg = `Order placed successfully!\n\nThank you, ${currentUser.name}. Your ${preferenceText} order is being prepared and will be delivered/ready at: ${currentUser.address}.`;
+            } else {
+                msg = `Guest order placed successfully!\n\nThank you for ordering. Your ${preferenceText} order is now being processed.`;
+            }
+            
+            alert(msg);
+            cart = [];
+            updateCartUI();
+            setTimeout(closeCart, 500);
+>>>>>>> 8626172 (Update .gitignore to exclude node_modules and prepare deployment)
         } else {
             showToast("Your order is empty. Please add items to checkout.");
         }
     });
 }
+<<<<<<< HEAD
 
 // Back to Cart from Checkout
 const backToCartBtn = document.getElementById('backToCartBtn');
@@ -1034,16 +1454,30 @@ window.addEventListener('scroll', () => {
         }
     }
 });
+=======
+>>>>>>> 8626172 (Update .gitignore to exclude node_modules and prepare deployment)
 
-// Newsletter Form
+// Newsletter subscription handler
 const newsletterForm = document.getElementById('newsletterForm');
 if (newsletterForm) {
     newsletterForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const email = newsletterForm.querySelector('input').value;
+<<<<<<< HEAD
         if(email) {
+=======
+        if (email) {
+>>>>>>> 8626172 (Update .gitignore to exclude node_modules and prepare deployment)
             showToast("Subscribed to newsletter successfully!");
             newsletterForm.reset();
         }
     });
 }
+<<<<<<< HEAD
+=======
+
+// Initialization on Load
+renderProducts();
+updateAuthUI();
+updateCartUI();
+>>>>>>> 8626172 (Update .gitignore to exclude node_modules and prepare deployment)

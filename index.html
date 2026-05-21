@@ -51,6 +51,12 @@
                 <li><a href="#testimonials">Reviews</a></li>
             </ul>
             <div class="nav-actions">
+                <button class="cart-btn" id="openSearchBtn" aria-label="Open Search">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="cart-btn" id="openAuthBtn" aria-label="User Account">
+                    <i class="fas fa-user"></i>
+                </button>
                 <button class="cart-btn" id="openCartBtn" aria-label="Open Order Cart">
                     <i class="fas fa-concierge-bell"></i>
                     <span class="cart-count">0</span>
@@ -61,6 +67,14 @@
             </div>
         </div>
     </nav>
+
+    <!-- Search Panel (Slide Down) -->
+    <div class="search-panel" id="searchPanel">
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search for Chicken Lamprais, Chocolate Fudge Cake, etc...">
+            <button class="search-close-btn" id="closeSearchBtn"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
 
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu-overlay">
@@ -129,327 +143,16 @@
 
         <!-- Menu Filters -->
         <div class="menu-filters fade-up">
-            <button class="filter-btn active" data-filter="all">All Masterpieces</button>
+            <button class="filter-btn active" data-filter="all">All Items</button>
+            <button class="filter-btn" data-filter="popular">Popular Items</button>
             <button class="filter-btn" data-filter="srilankan">Sri Lankan Specialties</button>
-            <button class="filter-btn" data-filter="international">International Culinary</button>
+            <button class="filter-btn" data-filter="savouries">Savouries</button>
+            <button class="filter-btn" data-filter="cakes">Cakes</button>
             <button class="filter-btn" data-filter="dessert">Sweet Desserts</button>
         </div>
 
-        <div class="product-grid container">
-            <!-- Product 1 (Int) -->
-            <div class="product-card fade-up" data-category="international">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1544025162-8315ea076231?w=800&q=80" alt="Wagyu Beef Tenderloin" loading="lazy">
-                    <div class="hover-overlay">
-                        <button class="view-btn" data-id="1">Quick View</button>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <h3>Wagyu Beef Tenderloin</h3>
-                    <p class="desc">A5 Japanese Wagyu seared to perfection with a red wine reduction.</p>
-                    <div class="card-footer">
-                        <span class="price">$120.00</span>
-                        <button class="add-to-cart" data-id="1" aria-label="Order Wagyu"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 2 (SL) -->
-            <div class="product-card fade-up delay-1" data-category="srilankan">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&q=80" alt="Ceylon Mud Crab Curry" loading="lazy">
-                    <div class="hover-overlay">
-                        <button class="view-btn" data-id="2">Quick View</button>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <h3>Ceylon Mud Crab Curry</h3>
-                    <p class="desc">Premium mud crab cooked in aromatic Sri Lankan spices and fresh coconut milk.</p>
-                    <div class="card-footer">
-                        <span class="price">$95.00</span>
-                        <button class="add-to-cart" data-id="2" aria-label="Order Crab"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 3 (Int) -->
-            <div class="product-card fade-up delay-2" data-category="international">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1559737712-4217316a7f0f?w=800&q=80" alt="Butter Poached Lobster" loading="lazy">
-                    <div class="hover-overlay">
-                        <button class="view-btn" data-id="3">Quick View</button>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <h3>Butter Poached Lobster</h3>
-                    <p class="desc">Fresh caught Maine lobster tail, slow-poached in herb butter with saffron risotto.</p>
-                    <div class="card-footer">
-                        <span class="price">$95.00</span>
-                        <button class="add-to-cart" data-id="3" aria-label="Order Lobster"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 4 (SL) -->
-            <div class="product-card fade-up" data-category="srilankan">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1608897013039-887f21d8c804?w=800&q=80" alt="Royal Ceylon Lamprais" loading="lazy">
-                    <div class="hover-overlay">
-                        <button class="view-btn" data-id="4">Quick View</button>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <h3>Royal Ceylon Lamprais</h3>
-                    <p class="desc">Aromatic rice cooked in rich stock, baked in banana leaf with mixed meat curry and sambols.</p>
-                    <div class="card-footer">
-                        <span class="price">$55.00</span>
-                        <button class="add-to-cart" data-id="4" aria-label="Order Lamprais"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 5 (Int) -->
-            <div class="product-card fade-up delay-1" data-category="international">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=800&q=80" alt="Truffle Mushroom Risotto" loading="lazy">
-                    <div class="hover-overlay">
-                        <button class="view-btn" data-id="5">Quick View</button>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <h3>Truffle Mushroom Risotto</h3>
-                    <p class="desc">Creamy arborio rice with wild forest mushrooms and freshly shaved black truffle.</p>
-                    <div class="card-footer">
-                        <span class="price">$65.00</span>
-                        <button class="add-to-cart" data-id="5" aria-label="Order Risotto"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 6 (SL) -->
-            <div class="product-card fade-up delay-2" data-category="srilankan">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1506084868230-bb9d95c24759?w=800&q=80" alt="Traditional Hopper Feast" loading="lazy">
-                    <div class="hover-overlay">
-                        <button class="view-btn" data-id="6">Quick View</button>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <h3>Traditional Hopper Feast</h3>
-                    <p class="desc">Crispy-edged egg hoppers served with caramelized seeni sambol and coconut lunu miris.</p>
-                    <div class="card-footer">
-                        <span class="price">$35.00</span>
-                        <button class="add-to-cart" data-id="6" aria-label="Order Hoppers"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 7 (Int) -->
-            <div class="product-card fade-up" data-category="international">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=800&q=80" alt="Pan-Seared Scallops" loading="lazy">
-                    <div class="hover-overlay">
-                        <button class="view-btn" data-id="7">Quick View</button>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <h3>Pan-Seared Scallops</h3>
-                    <p class="desc">Jumbo Hokkaido scallops seared to a golden brown over cauliflower silk and crispy pancetta.</p>
-                    <div class="card-footer">
-                        <span class="price">$75.00</span>
-                        <button class="add-to-cart" data-id="7" aria-label="Order Scallops"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 8 (SL) -->
-            <div class="product-card fade-up delay-1" data-category="srilankan">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=800&q=80" alt="Gourmet Kottu Supreme" loading="lazy">
-                    <div class="hover-overlay">
-                        <button class="view-btn" data-id="8">Quick View</button>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-                    </div>
-                    <h3>Gourmet Kottu Supreme</h3>
-                    <p class="desc">Shredded flatbread stir-fried with eggs, organic garden vegetables, and aromatic curry chicken.</p>
-                    <div class="card-footer">
-                        <span class="price">$40.00</span>
-                        <button class="add-to-cart" data-id="8" aria-label="Order Kottu"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 9 (SL) -->
-            <div class="product-card fade-up delay-2" data-category="srilankan">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80" alt="Cinnamon Glazed Duck" loading="lazy">
-                    <div class="hover-overlay">
-                        <button class="view-btn" data-id="9">Quick View</button>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <h3>Cinnamon Glazed Duck</h3>
-                    <p class="desc">Pan-seared duck breast glazed with organic Ceylon cinnamon and local wild bee honey.</p>
-                    <div class="card-footer">
-                        <span class="price">$65.00</span>
-                        <button class="add-to-cart" data-id="9" aria-label="Order Duck"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 10 (SL) -->
-            <div class="product-card fade-up" data-category="srilankan">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80" alt="Berkshire Black Pork Curry" loading="lazy">
-                    <div class="hover-overlay">
-                        <button class="view-btn" data-id="10">Quick View</button>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <h3>Berkshire Black Pork Curry</h3>
-                    <p class="desc">Slow-cooked premium pork belly in a dark roasted organic island curry, served with rice flour roti.</p>
-                    <div class="card-footer">
-                        <span class="price">$45.00</span>
-                        <button class="add-to-cart" data-id="10" aria-label="Order Pork"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 11 (SL) -->
-            <div class="product-card fade-up delay-1" data-category="srilankan">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1559737712-4217316a7f0f?w=800&q=80" alt="Jaffna Spiced Prawn Thermidor" loading="lazy">
-                    <div class="hover-overlay">
-                        <button class="view-btn" data-id="11">Quick View</button>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <h3>Jaffna Prawn Thermidor</h3>
-                    <p class="desc">Jumbo lagoon prawns stuffed with a creamy blend of Jaffna curry powder, coconut arrack, and gruyère.</p>
-                    <div class="card-footer">
-                        <span class="price">$70.00</span>
-                        <button class="add-to-cart" data-id="11" aria-label="Order Prawns"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 12 (SL) -->
-            <div class="product-card fade-up delay-2" data-category="srilankan">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=800&q=80" alt="Devilled Beef Tenderloin" loading="lazy">
-                    <div class="hover-overlay">
-                        <button class="view-btn" data-id="12">Quick View</button>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-                    </div>
-                    <h3>Devilled Beef Tenderloin</h3>
-                    <p class="desc">A spicy wok-tossed premium tenderloin with green chillies, onions, and sweet-sour tomato reduction.</p>
-                    <div class="card-footer">
-                        <span class="price">$50.00</span>
-                        <button class="add-to-cart" data-id="12" aria-label="Order Devilled Beef"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 13 (Dessert) -->
-            <div class="product-card fade-up" data-category="dessert">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1579372786545-d24232daf58c?w=800&q=80" alt="Modern Ceylon Watalappan" loading="lazy">
-                    <div class="hover-overlay">
-                        <button class="view-btn" data-id="13">Quick View</button>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <h3>Modern Ceylon Watalappan</h3>
-                    <p class="desc">Spiced coconut custard with organic jaggery, nutmeg, and toasted cashew crumbs.</p>
-                    <div class="card-footer">
-                        <span class="price">$25.00</span>
-                        <button class="add-to-cart" data-id="13" aria-label="Order Watalappan"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 14 (Dessert) -->
-            <div class="product-card fade-up delay-1" data-category="dessert">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=800&q=80" alt="Golden Saffron Mousse" loading="lazy">
-                    <div class="hover-overlay">
-                        <button class="view-btn" data-id="14">Quick View</button>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <h3>Golden Saffron Mousse</h3>
-                    <p class="desc">Premium rose water and saffron infused mousse with fresh berries and pistachio crisp.</p>
-                    <div class="card-footer">
-                        <span class="price">$28.00</span>
-                        <button class="add-to-cart" data-id="14" aria-label="Order Mousse"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 15 (Dessert) -->
-            <div class="product-card fade-up delay-2" data-category="dessert">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&q=80" alt="Gold Leaf Chocolate Fondant" loading="lazy">
-                    <div class="hover-overlay">
-                        <button class="view-btn" data-id="15">Quick View</button>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <h3>Gold Leaf Chocolate Fondant</h3>
-                    <p class="desc">Decadent Valrhona dark chocolate lava cake with organic vanilla bean gelato.</p>
-                    <div class="card-footer">
-                        <span class="price">$30.00</span>
-                        <button class="add-to-cart" data-id="15" aria-label="Order Fondant"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
+        <div class="product-grid container" id="productGridContainer">
+            <!-- Dynamic products will be injected by script.js -->
         </div>
     </section>
 
@@ -708,13 +411,19 @@
                     <p class="modal-desc" id="modalDesc">Detailed description here.</p>
                     
                     <div class="modal-options">
+                        <div class="option-group" id="modalSizeGroup" style="display: none;">
+                            <label>Select Size</label>
+                            <div class="size-selector-group" id="sizeSelectorGroup">
+                                <!-- Dynamically populated sizes will go here -->
+                            </div>
+                        </div>
                         <div class="option-group">
                             <label for="addonSelect">Enhancements</label>
                             <select id="addonSelect" class="custom-select">
                                 <option value="0">Standard Preparation</option>
-                                <option value="25">Add Shaved Black Truffle (+$25.00)</option>
-                                <option value="15">Add 24k Gold Leaf (+$15.00)</option>
-                                <option value="10">Add Sri Lankan Pol Sambol Relish (+$10.00)</option>
+                                <option value="2500">Add Shaved Black Truffle (+Rs. 2,500.00)</option>
+                                <option value="1500">Add 24k Gold Leaf (+Rs. 1,500.00)</option>
+                                <option value="150">Add Sri Lankan Pol Sambol Relish (+Rs. 150.00)</option>
                             </select>
                         </div>
                         <div class="option-group">
@@ -750,6 +459,57 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- User Authentication Modal (Register / Login) -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-content" style="max-width: 450px; display: block; padding: 40px;">
+            <button class="close-modal" id="closeAuthModal"><i class="fas fa-times"></i></button>
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="tabLogin">Log In</div>
+                <div class="auth-tab" id="tabRegister">Register</div>
+            </div>
+            
+            <!-- Login Form -->
+            <form class="auth-form active" id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn btn-primary auth-submit-btn">Log In</button>
+                <div class="auth-switch">Don't have an account? <span id="switchToRegister">Register here</span></div>
+            </form>
+            
+            <!-- Register Form -->
+            <form class="auth-form" id="registerForm">
+                <div class="form-group">
+                    <label for="regName">Full Name</label>
+                    <input type="text" id="regName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email Address</label>
+                    <input type="email" id="regEmail" placeholder="Enter email address" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPhone">Phone Number</label>
+                    <input type="tel" id="regPhone" placeholder="Enter phone number" required>
+                </div>
+                <div class="form-group">
+                    <label for="regAddress">Delivery Address</label>
+                    <input type="text" id="regAddress" placeholder="Enter delivery address" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Password</label>
+                    <input type="password" id="regPassword" placeholder="Create a password" required>
+                </div>
+                <button type="submit" class="btn btn-primary auth-submit-btn">Create Account</button>
+                <div class="auth-switch">Already have an account? <span id="switchToLogin">Log in here</span></div>
+            </form>
         </div>
     </div>
 
